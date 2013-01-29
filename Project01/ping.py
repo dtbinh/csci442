@@ -16,7 +16,7 @@ def main():
 	
 	ttl = sys.argv[2]
 	hostname = sys.argv[1]
-	openObj = Popen("ping -c 1 -t " + ttl + " " + hostname, shell=True, bufsize=-1, stdout=PIPE)
+	openObj = Popen("ping -c 1 -t " + ttl + " -W 5 " + hostname, shell=True, bufsize=-1, stdout=PIPE)
 	err = openObj.wait()
 	#print("Errors: ")
 	#print(err)
@@ -39,9 +39,15 @@ def main():
 		#res = re.match("From ([^ ]*) \((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}).*", ln)
 		#ip = re.match(".*?\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}.*", ln)
 		print("Hop " + ttl + ": " + ret_host + " (" + ret_ip + ")")
+		exit(9)
 	elif res:
 		ret_host = res.group(1)
 		ret_ip = res.group(2)
 		print("Destination " + hostname + " reached: " + ret_host + " (" + ret_ip + ")")
+		exit(0)
+	else:
+		# unhandled response
+		print("Unhandled response")
+		exit(1)
 
 main()
