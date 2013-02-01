@@ -1,0 +1,57 @@
+Gametrailers:
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Destination www.gametrailers.com reached: a129-19-157-16.deploy.akamaitechnologies.com (129.19.157.16)
+
+Google:
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Hop 5: xe-0-0-1.core-910.frgp.net (192.43.217.170)
+Hop 6: (72.14.194.239)
+Hop 7: (72.14.234.57)
+Hop 8: (209.85.251.111)
+Destination www.google.com reached: den03s06-in-f17.1e100.net (74.125.225.209)
+
+Reddit:
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Destination www.reddit.com reached: a129-19-157-6.deploy.akamaitechnologies.com (129.19.157.6)
+
+Tomshardware:
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Destination www.tomshardware.com reached: a129-19-157-14.deploy.akamaitechnologies.com (129.19.157.14)
+
+Youtube:
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Hop 5: xe-0-0-1.core-910.frgp.net (192.43.217.170)
+Hop 6: (72.14.194.239)
+Hop 7: (72.14.234.57)
+Hop 8: (209.85.251.111)
+Destination www.youtube.com reached: den03s06-in-f0.1e100.net (74.125.225.192)
+
+African Union (longest)
+Hop 1: (138.67.132.253)
+Hop 2: (138.67.253.18)
+Hop 3: csm-ct-gw.Mines.EDU (138.67.253.244)
+Hop 4: (138.67.253.2)
+Hop 5: xe-0-0-3.core-l3.frgp.net (192.43.217.194)
+Hop 6: (137.164.131.137)
+Hop 7: (137.164.130.174)
+Hop 8: xe-4-2-0.cr2.ord2.us.above.net (64.125.22.213)
+Hop 9: xe-2-1-0.cr2.lga5.us.above.net (64.125.27.34)
+Hop 10: xe-0-2-0.mpr1.lga6.us.above.net (64.125.28.217)
+Hop 11: 64.125.195.130.t00856-01.above.net (64.125.195.130)
+Hop 12: cheetah.undp.org (165.65.15.248)
+Destination www.africa-union.org reached: mirror.undp.org (165.65.20.15)

@@ -10,7 +10,7 @@ fi
 
 for ttl in {1..255};
 do
-	stdOut=`python ping.py $1 $ttl`
+	stdOut=`python ping.py2 $1 $ttl`
 	ret=$?
 	if [ $ret -eq 0 ]
 	then
