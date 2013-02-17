@@ -60,24 +60,37 @@ if [ -z "$UNAME" ];
 fi
 
 echo "Using $UNAME as the username. If this is wrong, please use the -u flag"
+echo "Output directory: $SAVEDIR"
 
 list='echo hi'
 
 # num users
-usrs="echo Users Logged in: " #\$(who | wc -l)\""
+usrs="echo \"Users Logged in: \$(who | wc -l)\""
 
 # gather CPU info
-cpuinfo="cat /proc/cpuinfo"
+cpuinfo="echo \"CPU \$(cat /proc/cpuinfo | grep -m1 'model name' )\""
+cpuinfo="$cpuinfo; cat /proc/cpuinfo | grep -m1 'cpu MHz'"
+cpuinfo="$cpuinfo; cat /proc/cpuinfo | grep -m1 'cpu cores'"
+# TODO: Virtual cores
 
 # avg load
-avgload="echo \"avgload: $(cat /proc/loadavg)\""
+avgload="echo \"avgload: \$(cat /proc/loadavg)\""
 
 # utilization
-util="cat /proc/stat"
+# TODO processing CPU utilization
+util="cat /proc/stat | grep 'cpu ' | awk '{ total=0 }'"
+
+# TODO: Cache
+
+
+#util="$util; echo \"Total Interrupts: \$(cat /proc/stat | grep intr | awk 'END { print \$2 }')\""
+
+# mem info
+mem="cat /proc/meminfo | grep Mem"
 
 # setup ssh's command
-command="'$cpuinfo'"
+command="$usrs; $cpuinfo; $avgload; $util; $mem"
 
 # done forming ssh command
 
-ssh $UNAME@$HNAME $command
+ssh $UNAME@$HNAME $command #> $SAVEDIR/$HNAME
