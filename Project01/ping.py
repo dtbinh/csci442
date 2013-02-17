@@ -28,7 +28,7 @@ def main():
 
 	# note: the outPipe contains binary data, shown as b''. b''.decode() will explicitly convert it to a string
 
-	ln = outPipe.splitlines()[1].decode()
+	ln = outPipe.splitlines()[1]
 	#print(ln)
 	res = re.match(".*[Ff]rom ?([^ ]*) \(?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}).*", ln)
 	#print("Reached? " + str(res))

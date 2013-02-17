@@ -1,0 +1,137 @@
+3.2
+	Creation of a process?
+		New batch job
+		Interactive Log-on
+		Created so the OS can provide a service
+		Created by an existing process
+3.3
+	New:		A process has just been created
+	Ready:		A process is prepared to be executed
+	Running:	A process is currently in execution
+	Blocked:	A process is waiting for an I/O event to finish
+	Exit:		A process has ceased execution, and needs to be cleaned up
+3.4
+	Preemt a process?
+		Temporarily cease execution for a case such as context switch. A preempt is only temporary, and the process will be continued soon
+		
+3.6
+	Why does 3.9b have 2 blocked states
+	The two blocked states represent the nature of the block:
+		Blocked/Suspend signifies suspended or blocked by the user
+		Other blocked signifies blocked by I/O, or hardware
+
+3.8
+	Why does the OS contain tables for management
+		Tables make it easy to monitor the OS state, and process' states
+
+3.9
+	General Info in a PCB:
+		1.	User-level context
+		2.	Register context
+		3.	Kernel-level context
+
+3.10
+	The two modes (user and kernel) are needed to keep processes and the system secure
+		Since elevated privileges are required to move into kernel-level, it prevents
+		malicious processes from easily executing kernel-level commands
+
+3.11
+	Steps for OS to make process?
+		1.	create spot in process table
+		2.	assign PID
+		3.	copy the parent process
+		4.	notify parent that an additional process owns its files
+		5.	tells the child it's ready to run
+		6.	return child ID to parent, and 0 to child
+
+3.13
+	3 examples of interrupt
+		1.	keyboard interrupt
+		2.	system call
+		3.	Inter-process interrupt (proc to proc communication)
+
+3.14
+	Mode switch vs process switch?
+		Mode switches between kernel mode and user mode
+		Process switches are between processor states
+
+Problems:
+3.1
+	Ready -> Run:	Process is ready and waiting to run, then the CPU has time freed up, and switches to it, placing it into the running mode
+	Run -> Ready:	OS issues a preempt to the process, placing it into the ready state as it waits for CPU time
+	Run -> Blocked:	Process asks a hard disk for data, so as it waits, it moves to the blocked state
+	Blocked -> ready:	Process Has received I/O data, and is ready for execution again
+	Ready -> nonRes:	Process is terminated at a time when it is not currently executing
+	Blocked -> nonRes:	Process is halted while it's blocked for I/O
+	
+3.2
+	22:
+		P1:	Blocked waiting on disk 3
+		P5: Ready
+		P7: Blocked waiting on disk 3 write
+		P3: Blocked waiting on disk 2
+	37:
+		P1: Ready
+		P5: Blocked waiting on disk 3 write
+		P7: Blocked Waiting on disk 3 write
+		P3: Ready
+	47:
+		P8: null
+		P1: Ready
+		P5: Running
+		P7: Blocked waiting on disk 3 write
+		P3: Ready
+
+3.9
+	a. Possible to wait on two events at the same time?
+		Yah, this is possible, and could be helpful if we wanted to write info to two different places. Each write would block, but can execute without stepping on eachothers' feet
+	b.	Provide a short-circuit to the ready state after entering the event queue to signify 'ask for resource, and fork it to background'
+
+3.12
+	either 0, or the PID of the child
+
+Review questions
+4.1
+	TCB:
+		proc state (thread state)
+		priority
+		schedule info
+	PCB:
+		event
+		proc state
+		data structuring
+		inter-proc communication
+		proc-privilege
+		memory management
+		resource ownership/utilization
+
+4.2
+	Mode-switching is easier in threads because the OS needs to make a context switch (resource change) to perform a mode switch. with thread mode switching, this isn't a problem, since it doesn't manage as many resources
+
+4.5
+	Shared by all threads of a process?
+		File handlers
+		IPC handlers
+
+
+4.6
+	Advantages of ULT vs KLT
+		Quicker to make
+		faster to swap in and out of execution
+		scheduling can be done at the liberty of the user
+
+4.7
+	Disadvantages of ULT vs KLT
+		OS doesn't know about ULTs
+		ULTs share one executable thread within the process
+		one block can be seen as a full process block by the kernel
+
+Problems
+4.1
+	No, this is not the case. Switching ULT modes requires that the entire process go through a mode-switch
+
+4.2
+	This is because Kernel must keep track of which process will receive the interrupt when the event is finished, and the kernel can't keep the process in both a blocked, and a running state
+
+4.5
+	No. When the parent of a thread is exited, the resources for children threads to use are gone, so the children are placed in zombie state. This implies non-executing state (there's no instructions to execute). Modern kernels will automatically remove these
