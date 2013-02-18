@@ -61,7 +61,7 @@ fi
 #	UNAME="mbuland"
 #fi
 
-echo "Output directory: $SAVEDIR"
+echo "$SAVEDIR"
 
 for HNAME in $HOSTS;
 	do
