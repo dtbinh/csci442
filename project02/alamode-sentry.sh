@@ -100,5 +100,5 @@ for HNAME in $HOSTS;
 	
 	# done forming ssh command
 	
-	ssh $UNAME$HNAME $command #> $SAVEDIR/$HNAME
+	ssh $UNAME$HNAME $command > $SAVEDIR/$HNAME
 done
