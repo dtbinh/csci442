@@ -6,7 +6,7 @@ function printUsage {
 		echo """Usage: alamode-sentry [options] (-n HOSTNAME | -f FILENAME) [-d directory]
 Options:
 	-h				help
-	-u <username>	Username to use when SSHing
+	-u <username>	Username to use when SSHing. Default is currently logged in user
 		"""
 		quit
 }
@@ -79,15 +79,37 @@ for HNAME in $HOSTS;
 	
 	# utilization
 	# source: https://github.com/zirrostig/OneLiners/blob/master/cpu_usage.sh
-	util="echo -n 'CPU Usage: '; ( sleep 2; cat /proc/stat ) | cat /proc/stat - |
-	    awk ' /cpu / { oldsum = sum; sum = 0;
-		for ( i = 2; i <= NF; i++ ) { sum += \$i };
-		oldidle = idle;
-		idle = \$5;
-		diffsum = sum - oldsum;
-		diffidle = idle - oldidle;
-		usage = (( diffsum - diffidle ) / diffsum ) * 100}
-		END { print usage }'"
+	# inner array:
+	# 0: sum	1: idle		2: usage
+	util='( sleep 2; cat /proc/stat ) | cat /proc/stat - |
+	    awk " /cpu[0-9]+/ { 
+			match(\$1, \"[0-9]+\");
+			cpuNum = substr(\$1, RSTART, RLENGTH);
+			oldsum = cpuArray[cpuNum, 0];
+			cpuArray[cpuNum, 0] = 0;
+			for ( i = 2; i <= NF; i++ ) { cpuArray[cpuNum, 0] += \$i };
+			oldidle = cpuArray[cpuNum, 1];
+			cpuArray[cpuNum, 1] = \$5;
+			diffsum = cpuArray[cpuNum, 0] - oldsum;
+			diffidle = cpuArray[cpuNum, 1] - oldidle;
+			cpuArray[cpuNum, 2] = (( diffsum - diffidle ) / diffsum ) * 100;
+			lines++
+		}
+		/cpu / {
+			oldsum = sum;
+			sum = 0;
+			for ( i = 2; i <= NF; i++ ) { sum += \$i };
+			oldidle = idle;
+			idle = \$5;
+			diffsum = sum - oldsum;
+			diffidle = idle - oldidle;
+			usage = (( diffsum - diffidle ) / diffsum ) * 100;
+		}
+		END { 
+			print \"Overall CPU Utilization: \" usage;
+			for(cpuNum=0; cpuNum < lines/2; cpuNum++)
+				print sprintf(\"CPU%d Utilization: \", cpuNum) cpuArray[cpuNum, 2];
+		}"'
 	
 	# Cache
 	cache='for f in $(ls /sys/devices/system/cpu/cpu0/cache); do f="/sys/devices/system/cpu/cpu0/cache/$f"; echo "L$(cat $f/level) $(cat $f/type) Size: $(cat $f/size)"; done'
@@ -100,5 +122,5 @@ for HNAME in $HOSTS;
 	
 	# done forming ssh command
 	
-	ssh $UNAME$HNAME $command > $SAVEDIR/$HNAME
+	ssh $UNAME$HNAME $command #> $SAVEDIR/$HNAME
 done
