@@ -116,11 +116,45 @@ for HNAME in $HOSTS;
 	
 	# mem info
 	mem="cat /proc/meminfo | grep Mem"
+
+	# Interrupts info 
+	inters='cat /proc/interrupts | awk "
+		{
+			if ( match(\$1, /CPU/)) {
+				nCPU = NF;
+			} else {
+				for (i=2; i < nCPU+2; i++) {
+					cpuSums[i-2] += \$i;
+					types[NR] += \$i;
+				}
+				descs[NR] = \$1 \$i;
+				i++;
+				while (i <= NF) {
+					descs[NR] = descs[NR] \" \" \$i;
+					i++;
+				}
+			}
+		}
+		END {
+			i=0;
+			for (val in cpuSums) { tot += cpuSums[val]; print \"CPU\" i \" interrupts: \" cpuSums[val]; i++; }
+			print \"Total since boot: \" tot;
+			print \"Sum of interrupts by type:\";
+			for (tArr in types) {
+				printf(\"Type %s: \", descs[tArr]);
+				print types[tArr];
+			}
+		}
+	"'
+			#lT = 0;
+			#lD = 0;
+			#for (t in types) { lT++; }
+			#for (t in descs) { lD++; }
+			#print \"Types: \" lT;
+			#print \"Descs: \" lD;
 	
 	# setup ssh's command
-	command="$usrs; $cpuinfo; $avgload; $util; $cache; $mem"
+	command="$usrs; $cpuinfo; $avgload; $util; $cache; $mem; $inters"
 	
-	# done forming ssh command
-	
-	ssh $UNAME$HNAME $command #> $SAVEDIR/$HNAME
+	ssh $UNAME$HNAME $command > $SAVEDIR/$HNAME
 done
