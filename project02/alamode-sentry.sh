@@ -7,11 +7,13 @@ function printUsage {
 Options:
 	-h				help
 	-u <username>	Username to use when SSHing. Default is currently logged in user
+	-o				output to standard out
 		"""
-		quit
+		exit
 }
 
-while getopts "hd:n:f:u:" opt 
+
+while getopts "hd:n:f:u:o" opt 
 	do
 	case $opt in
 	h)
@@ -30,6 +32,9 @@ while getopts "hd:n:f:u:" opt
 		;;
 	u)
 		UNAME="$OPTARG@"
+		;;
+	o)
+		SOUT=true
 		;;
 	\?)
 		printUsage
@@ -56,15 +61,13 @@ else
 	SAVEDIR=$(mktemp -d)
 fi
 
-#if [ -z "$UNAME" ];
-#	then
-#	UNAME="mbuland"
-#fi
 
 echo "$SAVEDIR"
 
 for HNAME in $HOSTS;
 	do
+	
+
 	# num users
 	usrs="echo \"Users Logged in: \$(who | wc -l)\""
 	
@@ -156,5 +159,20 @@ for HNAME in $HOSTS;
 	# setup ssh's command
 	command="$usrs; $cpuinfo; $avgload; $util; $cache; $mem; $inters"
 	
-	ssh $UNAME$HNAME $command > $SAVEDIR/$HNAME
+	if [ -n "$SOUT" ];
+		then
+		ssh -oConnectTimeout=10 $UNAME$HNAME $command
+	else
+		ssh -oConnectTimeout=10 $UNAME$HNAME $command > $SAVEDIR/$HNAME
+	fi
+	if [[ $? != 0 ]];
+		then
+		# SSH has failed
+		if [ -n "$SOUT" ];
+			then
+			echo "Failed to connect to $HNAME"
+		else
+			echo "Failed to connect to $HNAME" >  $SAVEDIR/$HNAME
+		fi
+	fi
 done
