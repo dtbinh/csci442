@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Alamode Machine Info</title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div>
+    <h1>Alamode Machine Information</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2">Host</th>
+          <th rowspan="2">Users</th>
+          <th rowspan="2">Processes</th>
+          <th rowspan="2">Memory Usage</th>
+          <th colspan="3">System Load</th>
+        </tr>
+        <tr>
+          <th>1 min</th>
+          <th>5 min</th>
+          <th>15 min</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="light_load">
+          <td>bb136-01</td>
+          <td>1</td>
+          <td>100</td>
+          <td>1GB / 8GB</td>
+          <td>0.1</td>
+          <td>0.2</td>
+          <td>0.1</td>
+        </tr>
+        <tr class="medium_load">
+          <td>bb136-02</td>
+          <td>3</td>
+          <td>300</td>
+          <td>5GB / 8GB</td>
+          <td>0.8</td>
+          <td>0.9</td>
+          <td>0.8</td>
+        </tr>
+        <tr class="heavy_load">
+          <td>bb136-03</td>
+          <td>10</td>
+          <td>300</td>
+          <td>7GB / 8GB</td>
+          <td>8.0</td>
+          <td>7.8</td>
+          <td>7.9</td>
+        </tr>
+        <tr class="unavailable">
+          <td>bb136-04</td>
+          <td colspan="6">Host unreachable</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <span>Light load:
+              <span class="light_load"></span>
+            </span>
+            <span>Medium load:
+              <span class="medium_load"></span>
+            </span>
+            <span>Heavy load:
+              <span class="heavy_load"></span>
+            </span>
+            <span>Unreachable:
+              <span class="unavailable"></span>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>    
+  </div>
+</body>
+</html>
