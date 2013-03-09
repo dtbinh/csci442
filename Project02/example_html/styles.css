@@ -1,0 +1,133 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/**
+ * Page styles
+ */
+body > div {
+  width: 970px;
+  font-family: sans-serif;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 32px;
+  text-align: center;
+  margin: 30px 0 20px;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  text-align: center;
+}
+
+th:first-child, tbody td:first-child {
+  text-align: left;
+}
+
+thead {
+  border-bottom: 1px #000 solid;
+}
+
+thead tr:first-child th {
+  font-weight: bold;
+  font-size: 115%;
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+
+thead tr:last-child th {
+  font-size: 90%;
+  padding: 3px 0 6px;
+  color: #888;
+}
+
+tbody td {
+  padding: 10px;
+}
+
+tfoot {
+  border-top: 1px #000 solid;
+}
+
+tfoot td {
+  padding: 20px 0 10px;
+}
+
+tfoot td > span {
+  margin: 0 20px;
+  line-height: 20px;
+}
+
+tfoot span > span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+.light_load {
+  background-color: #0C0;
+}
+
+.medium_load {
+  background-color: #fa0;
+}
+
+.heavy_load {
+  background-color: #F00;
+}
+
+.unavailable {
+  background-color: #999;
+}
+
