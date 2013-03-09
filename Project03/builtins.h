@@ -5,10 +5,13 @@
 #include <vector>
 #include <dirent.h>
 #include <stdio.h>
+#include <map>
 
 using std::vector;
 using std::string;
+using std::map;
 
+extern map<string, string> alias_map;
 
 // Lists all the files in the specified directory. If not given an argument,
 // the current working directory is used instead.
@@ -50,4 +53,4 @@ int com_history(vector<string>& tokens);
 
 
 // Returns the current working directory.
-string pwd();
+char* pwd();
