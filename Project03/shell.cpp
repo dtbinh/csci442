@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <unistd.h>
+#include <sys/wait.h>
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -22,6 +24,21 @@
 //	 #include <unistd.h>
 
 using namespace std;
+
+// prototype for execute command. Move this once the command works
+//int execute_single_command(vector<string> command, 
+
+// Allocates and returns a char** from a vector of strings. This array is copied from the c_strs
+char** vect_to_char(vector<string> str_list) {
+	char** arr = (char**) malloc(sizeof(char*) * str_list.size() + 1);
+	for (int i=0; i < str_list.size(); i++) {
+		arr[i] = strdup(str_list[i].c_str());
+		// arr[i] = (char*) malloc(sizeof(char) * str_list[i].length());
+		// strcpy(arr[i], str_list[i].c_str());
+	}
+	arr[str_list.size()] = (char*) 0;
+	return arr;
+}
 
 
 // The characters that readline will use to delimit words
@@ -45,17 +62,132 @@ char* historical_command(string line);
 
 // Handles external commands, redirects, and pipes.
 int execute_external_command(vector<string> tokens) {
-	// TODO: YOUR CODE GOES HERE
-	return 0;
+	// division into sections which represent individual commands separated by pipe
+	vector< vector<string> > commands;
+	commands.push_back(vector<string>());
+	printf("Number of tokens: %d\n", tokens.size());
+	for (int i=0; i < tokens.size(); i++) {
+		if (tokens[i] == "|") {
+			commands.push_back(vector<string>());
+		} else {
+			commands.back().push_back(string(tokens[i]));
+		}
+	}
+
+	/* displays the commands */
+	printf("Commands: %d\n", commands.size());
+
+	for (int i=0; i < commands.size(); i++) {
+		printf("New Command. i=%d\n", i);
+		for (int j=0; j < commands[i].size(); j++) {
+			printf("Token: %s\n", commands[i][j].c_str());
+		}
+	}
+	/**/
+
+	// We need to pipes. One on either end of a 'middle' process
+	int ipc_old[2];
+	int ipc_new[2];
+	int return_val = 0;
+
+	printf("Commands: %d\n", commands.size());
+	for (int i=0; i < commands.size(); i++) {
+		printf("Searching for <\n");
+		bool has_filein = false;
+		for (int j=0; j < commands[i].size(); j++) {
+			if (commands[i][j] == "<") {
+				has_filein = true;
+				break;
+			}
+		}
+		// TODO: File redirection
+
+		// TODO: Error redirection
+		
+		// fork and exec!
+		//printf("Pre Forking!\n");
+		int id = fork();
+		//printf("Post Forking!\n");
+		if (id == 0) {
+			bool has_com_after = i < commands.size()-1;
+			bool has_com_before = i > 0;
+			// I'm the child
+			printf("I'm the child! ipc_old[0]=%u ipc_old[1]=%u\n", ipc_old[0], ipc_old[1]);
+
+			// Setup input
+			if (has_com_before) {
+				// don't need write_side
+				close(ipc_old[1]);
+
+				// pipe -> stdin
+				dup2(ipc_old[0], 0);
+			}
+			if (has_filein) {
+				// dup2(file, 0);
+			}
+
+			// Setup output
+			if (has_com_after) {
+				// Setup a new pipe
+				pipe(ipc_new);
+
+				// don't need read-side
+				close(ipc_new[0]);
+				
+				// stdout -> pipe
+				dup2(ipc_new[1], 1);
+			}
+
+			// exec command
+			char** args = vect_to_char(commands[i]);
+			for (int k=0; k < commands[i].size(); k++) {
+				printf("arg %d: %s\n", k, args[k]);
+			}
+			execvp(commands[i][0].c_str(), args);
+			//char* a[] = { "ls", (char*) 0 };
+			//execvp("ls", a);
+
+			// Finish everything up
+			// done reading
+			int close_err = close(ipc_old[0]);	// doesn't matter if it fails. It probably means it's already been closed
+			if (has_com_after) {
+				// new -> old. the old pipe has now served its purpose
+				ipc_old[0] = ipc_new[0];
+				ipc_old[1] = ipc_new[1];
+			}
+		} else if(id > 0) {
+			// I'm the parent
+			printf("I'm the parent!\n");
+			wait(NULL);
+		} else {
+			// Fork failed. We're in trouble
+			printf("Fork failed! AHHH!!!\n");
+			return -1;
+		}
+	}
+
+	return return_val;
 }
+
+// Executes 1 single command, and either waits on it, or forks to background
 
 
 // Return a string representing the prompt to display to the user. It needs to
 // include the current working directory and should also use the return value to
 // indicate the result (success or failure) of the last command.
-string get_prompt(int return_value) {
-	// TODO: YOUR CODE GOES HERE
-	return " > "; // replace with your own code
+char* get_prompt(int return_value) {
+	char* ps1 = (char*) calloc(sizeof(char), 255);
+	char* working_dir = pwd();
+	strcat(ps1, working_dir);
+	if (return_value > 0) {
+		// there was an error
+		strcat(ps1, " =( ");
+	} else {
+		// 'sall good, man
+		strcat(ps1, " =) ");
+	}
+	strcat(ps1, "% ");
+	return ps1; // replace with your own code
 }
 
 
@@ -150,6 +282,7 @@ vector<string> tokenize(const char* line) {
 	}
 
 	// Search for quotation marks, which are explicitly disallowed
+	/* TODO: Search for quotation marks, and combine the contents as 1 single token
 	for (size_t i = 0; i < tokens.size(); i++) {
 
 		if (tokens[i].find_first_of("\"'`") != string::npos) {
@@ -158,14 +291,141 @@ vector<string> tokenize(const char* line) {
 			tokens.clear();
 		}
 	}
+	*/
 
 	return tokens;
 }
+
+int execute_command(vector<string> tokens, int fd[3], bool run_in_parent, bool parent_waits) {
+	if (tokens.size < 1) { return -1; }
+	
+	// Builtin?
+	map<string, command>::iterator cmd = builtins.find(tokens[0]);
+	command builtin = NULL;
+
+	if (cmd != builtins.end()) {
+		builtin = cmd->second;
+	}
+
+	dup2(fd[0], 0);
+	dup2(fd[1], 1);
+	dup2(fd[2], 2);
+
+	if (run_in_parent) {
+		// we're disallowing external commands to take over the shell, so run the builtin
+		if (builtin) {
+			(*builtin)(tokens);
+		} else {
+			printf("External commands taking over the shell is EXPLICITLY dissallowed.\n");
+		}
+	} else {
+		// fork and exec!
+
+		int pid = fork();
+		if (id < 0) {
+			printf("FORK FAILED! AH MUH GYAD\n");
+		} else if (id == 0) {
+			// I'm the child
+
+			// exec command
+			char** args = vect_to_char(commands[i]);
+			for (int k=0; k < commands[i].size(); k++) {
+				printf("arg %d: %s\n", k, args[k]);
+			}
+			execvp(commands[i][0].c_str(), args);
+			//char* a[] = { "ls", (char*) 0 };
+			//execvp("ls", a);
+
+		} else {
+			// I'm the parent
+		}
+	}
+	
+
+	int id = fork();
+	//printf("Post Forking!\n");
+	if (id == 0) {
+		bool has_com_after = i < commands.size()-1;
+		bool has_com_before = i > 0;
+		// I'm the child
+		printf("I'm the child! ipc_old[0]=%u ipc_old[1]=%u\n", ipc_old[0], ipc_old[1]);
+
+		// Setup input
+		if (has_com_before) {
+			// don't need write_side
+			close(ipc_old[1]);
+
+			// pipe -> stdin
+			dup2(ipc_old[0], 0);
+		}
+		if (has_filein) {
+			// dup2(file, 0);
+		}
+
+		// Setup output
+		if (has_com_after) {
+			// Setup a new pipe
+			pipe(ipc_new);
+
+			// don't need read-side
+			close(ipc_new[0]);
+			
+			// stdout -> pipe
+			dup2(ipc_new[1], 1);
+		}
+
+		// exec command
+		char** args = vect_to_char(commands[i]);
+		for (int k=0; k < commands[i].size(); k++) {
+			printf("arg %d: %s\n", k, args[k]);
+		}
+		execvp(commands[i][0].c_str(), args);
+		//char* a[] = { "ls", (char*) 0 };
+		//execvp("ls", a);
+
+		// Finish everything up
+		// done reading
+		int close_err = close(ipc_old[0]);	// doesn't matter if it fails. It probably means it's already been closed
+		if (has_com_after) {
+			// new -> old. the old pipe has now served its purpose
+			ipc_old[0] = ipc_new[0];
+			ipc_old[1] = ipc_new[1];
+		}
+	} else if(id > 0) {
+		// I'm the parent
+		printf("I'm the parent!\n");
+		wait(NULL);
+	} else {
+		// Fork failed. We're in trouble
+		printf("Fork failed! AHHH!!!\n");
+		return -1;
+	}
+}
+
+/*
+ *	structure planning
+ *
+ *	execute_line
+ *		create executable 'packets'
+ *		loop:
+ *			setup pipes/file redirection
+ *			execution_step()
+ *			close handlers
+ *
+ * execution_step()
+ * 		takes file_handler[3] (in, out, err)
+ * 		dups
+ * 		fork
+ * 		exec
+ * 		call it good. let the parent function close everything
+ *
+ */
 
 
 // Executes a line of input by either calling execute_external_command or
 // directly invoking the built-in command.
 int execute_line(vector<string>& tokens, map<string, command>& builtins) {
+	/* Old, don't care
 	int return_value = 0;
 
 	if (tokens.size() != 0) {
@@ -179,6 +439,126 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 	}
 
 	return return_value;
+	*/
+
+	// division into sections which represent individual commands separated by pipe
+	vector< vector<string> > commands;
+	commands.push_back(vector<string>());
+	printf("Number of tokens: %d\n", tokens.size());
+	for (int i=0; i < tokens.size(); i++) {
+		if (tokens[i] == "|") {
+			commands.push_back(vector<string>());
+		} else {
+			commands.back().push_back(string(tokens[i]));
+		}
+	}
+
+	/* displays the commands
+	printf("Commands: %d\n", commands.size());
+
+	for (int i=0; i < commands.size(); i++) {
+		printf("New Command. i=%d\n", i);
+		for (int j=0; j < commands[i].size(); j++) {
+			printf("Token: %s\n", commands[i][j].c_str());
+		}
+	}
+	*/
+
+	// We need two pipes. One on either end of a 'middle' process. if they aren't used, they aren't used
+	// TODO: pipes
+	//int ipc_old[2];
+	//int ipc_new[2];
+	int return_val = 0;
+
+	printf("Commands: %d\n", commands.size());
+	for (int i=0; i < commands.size(); i++) {
+		printf("Searching for <\n");
+		bool has_filein = false;
+		for (int j=0; j < commands[i].size(); j++) {
+			if (commands[i][j] == "<") {
+				has_filein = true;
+				break;
+			}
+		}
+		int handlers[3];
+
+		// load handlers up with my process'
+		//dup2(0, handlers[0]);
+		dup2(open("test.txt"), handlers[0]);	// assume it's successful
+		dup2(1, handlers[1]);
+		dup2(2, handlers[2]);
+
+		// open up a file
+		
+		execute_command(commands[i], handlers);
+
+		for (int i=0; i < 3; i++) {
+			//int close_status = close(handlers[i]);	// dunno what to do with the close_status
+			//TODO: close detection?
+		}
+		/*
+		// fork and exec!
+		//printf("Pre Forking!\n");
+		int id = fork();
+		//printf("Post Forking!\n");
+		if (id == 0) {
+			bool has_com_after = i < commands.size()-1;
+			bool has_com_before = i > 0;
+			// I'm the child
+			printf("I'm the child! ipc_old[0]=%u ipc_old[1]=%u\n", ipc_old[0], ipc_old[1]);
+
+			// Setup input
+			if (has_com_before) {
+				// don't need write_side
+				close(ipc_old[1]);
+
+				// pipe -> stdin
+				dup2(ipc_old[0], 0);
+			}
+			if (has_filein) {
+				// dup2(file, 0);
+			}
+
+			// Setup output
+			if (has_com_after) {
+				// Setup a new pipe
+				pipe(ipc_new);
+
+				// don't need read-side
+				close(ipc_new[0]);
+				
+				// stdout -> pipe
+				dup2(ipc_new[1], 1);
+			}
+
+			// exec command
+			char** args = vect_to_char(commands[i]);
+			for (int k=0; k < commands[i].size(); k++) {
+				printf("arg %d: %s\n", k, args[k]);
+			}
+			execvp(commands[i][0].c_str(), args);
+			//char* a[] = { "ls", (char*) 0 };
+			//execvp("ls", a);
+
+			// Finish everything up
+			// done reading
+			int close_err = close(ipc_old[0]);	// doesn't matter if it fails. It probably means it's already been closed
+			if (has_com_after) {
+				// new -> old. the old pipe has now served its purpose
+				ipc_old[0] = ipc_new[0];
+				ipc_old[1] = ipc_new[1];
+			}
+		} else if(id > 0) {
+			// I'm the parent
+			printf("I'm the parent!\n");
+			wait(NULL);
+		} else {
+			// Fork failed. We're in trouble
+			printf("Fork failed! AHHH!!!\n");
+			return -1;
+		}
+		*/
+	}
 }
 
 
@@ -254,10 +634,10 @@ int main() {
 	while (true) {
 
 		// Get the prompt to show, based on the return value of the last command
-		string prompt = get_prompt(return_value);
+		char* prompt = get_prompt(return_value);
 
 		// Read a line of input from the user
-		char* line = readline(prompt.c_str());
+		char* line = readline(prompt);
 
 		// If the pointer is null, then an EOF has been received (ctrl-d)
 		if (!line) {

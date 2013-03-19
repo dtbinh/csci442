@@ -150,7 +150,7 @@ int com_history(vector<string>& tokens) {
 
 char* pwd() {
 	char* result;
-	char* buffer;
+	char* buffer = (char*) calloc(sizeof(char), 255);
 	size_t size;
 	result = getcwd(buffer, size);
 	if (result == buffer) {
