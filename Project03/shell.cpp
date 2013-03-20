@@ -3,12 +3,14 @@
 #include <map>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <unistd.h>
-#include <sys/wait.h>
+#include <vector>
 
 #include <readline/readline.h>
 #include <readline/history.h>
+
+#include <sys/wait.h>
+#include <fcntl.h>
 
 #include "builtins.h"
 
@@ -62,6 +64,16 @@ char* historical_command(string line);
 
 // Handles external commands, redirects, and pipes.
 int execute_external_command(vector<string> tokens) {
+	// exec command
+	char** args = vect_to_char(tokens);
+	//for (int k=0; k < tokens.size(); k++) {
+	//	printf("arg %d: %s\n", k, args[k]);
+	//}
+	execvp(tokens[0].c_str(), args);
+	//char* a[] = { "ls", (char*) 0 };
+	//execvp("ls", a);
+	
+	/* TODO: OLD
 	// division into sections which represent individual commands separated by pipe
 	vector< vector<string> > commands;
 	commands.push_back(vector<string>());
@@ -74,7 +86,7 @@ int execute_external_command(vector<string> tokens) {
 		}
 	}
 
-	/* displays the commands */
+	 displays the commands
 	printf("Commands: %d\n", commands.size());
 
 	for (int i=0; i < commands.size(); i++) {
@@ -83,7 +95,7 @@ int execute_external_command(vector<string> tokens) {
 			printf("Token: %s\n", commands[i][j].c_str());
 		}
 	}
-	/**/
+	
 
 	// We need to pipes. One on either end of a 'middle' process
 	int ipc_old[2];
@@ -167,6 +179,8 @@ int execute_external_command(vector<string> tokens) {
 	}
 
 	return return_val;
+	TODO: OLD
+	*/
 }
 
 // Executes 1 single command, and either waits on it, or forks to background
@@ -296,8 +310,10 @@ vector<string> tokenize(const char* line) {
 	return tokens;
 }
 
-int execute_command(vector<string> tokens, int fd[3], bool run_in_parent, bool parent_waits) {
-	if (tokens.size < 1) { return -1; }
+int execute_command(vector<string> tokens, bool run_in_parent, bool parent_waits) {
+	if (tokens.size() < 1) { return -1; }
+
+	int return_value = -1;
 	
 	// Builtin?
 	map<string, command>::iterator cmd = builtins.find(tokens[0]);
@@ -306,100 +322,45 @@ int execute_command(vector<string> tokens, int fd[3], bool run_in_parent, bool p
 	if (cmd != builtins.end()) {
 		builtin = cmd->second;
 	}
-
-	dup2(fd[0], 0);
-	dup2(fd[1], 1);
-	dup2(fd[2], 2);
+	run_in_parent = (builtin != NULL);
 
 	if (run_in_parent) {
 		// we're disallowing external commands to take over the shell, so run the builtin
 		if (builtin) {
-			(*builtin)(tokens);
+			return_value = (*builtin)(tokens);
 		} else {
 			printf("External commands taking over the shell is EXPLICITLY dissallowed.\n");
+			return_value = -1;
 		}
 	} else {
 		// fork and exec!
 
 		int pid = fork();
-		if (id < 0) {
+		if (pid < 0) {
 			printf("FORK FAILED! AH MUH GYAD\n");
-		} else if (id == 0) {
+		} else if (pid == 0) {
 			// I'm the child
-
-			// exec command
-			char** args = vect_to_char(commands[i]);
-			for (int k=0; k < commands[i].size(); k++) {
-				printf("arg %d: %s\n", k, args[k]);
+			printf("I'm the child\n");
+			if (builtin) {
+				return_value = (*builtin)(tokens);
+			} else {
+				return_value = execute_external_command(tokens);
 			}
-			execvp(commands[i][0].c_str(), args);
-			//char* a[] = { "ls", (char*) 0 };
-			//execvp("ls", a);
-
 		} else {
 			// I'm the parent
+			printf("I'm the parent. Wait? %d\n", parent_waits);
+			if (parent_waits > 0) {
+				// wait for all children to finish
+				int* child_return;
+				printf("Waiting on child\n");
+				//waitpid(pid, child_return, 0);
+				wait(NULL);
+				printf("Child returned with %d\n", *child_return);
+				//wait(NULL);
+			}
 		}
 	}
-	
-
-	int id = fork();
-	//printf("Post Forking!\n");
-	if (id == 0) {
-		bool has_com_after = i < commands.size()-1;
-		bool has_com_before = i > 0;
-		// I'm the child
-		printf("I'm the child! ipc_old[0]=%u ipc_old[1]=%u\n", ipc_old[0], ipc_old[1]);
-
-		// Setup input
-		if (has_com_before) {
-			// don't need write_side
-			close(ipc_old[1]);
-
-			// pipe -> stdin
-			dup2(ipc_old[0], 0);
-		}
-		if (has_filein) {
-			// dup2(file, 0);
-		}
-
-		// Setup output
-		if (has_com_after) {
-			// Setup a new pipe
-			pipe(ipc_new);
-
-			// don't need read-side
-			close(ipc_new[0]);
-			
-			// stdout -> pipe
-			dup2(ipc_new[1], 1);
-		}
-
-		// exec command
-		char** args = vect_to_char(commands[i]);
-		for (int k=0; k < commands[i].size(); k++) {
-			printf("arg %d: %s\n", k, args[k]);
-		}
-		execvp(commands[i][0].c_str(), args);
-		//char* a[] = { "ls", (char*) 0 };
-		//execvp("ls", a);
-
-		// Finish everything up
-		// done reading
-		int close_err = close(ipc_old[0]);	// doesn't matter if it fails. It probably means it's already been closed
-		if (has_com_after) {
-			// new -> old. the old pipe has now served its purpose
-			ipc_old[0] = ipc_new[0];
-			ipc_old[1] = ipc_new[1];
-		}
-	} else if(id > 0) {
-		// I'm the parent
-		printf("I'm the parent!\n");
-		wait(NULL);
-	} else {
-		// Fork failed. We're in trouble
-		printf("Fork failed! AHHH!!!\n");
-		return -1;
-	}
+	return return_value;
 }
 
 /*
@@ -409,13 +370,13 @@ int execute_command(vector<string> tokens, int fd[3], bool run_in_parent, bool p
  *		create executable 'packets'
  *		loop:
  *			setup pipes/file redirection
- *			execution_step()
+ *			fork
+ *				dup
+ *				execution_step()
  *			close handlers
  *
  * execution_step()
  * 		takes file_handler[3] (in, out, err)
- * 		dups
- * 		fork
  * 		exec
  * 		call it good. let the parent function close everything
  *
@@ -444,7 +405,7 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 	// division into sections which represent individual commands separated by pipe
 	vector< vector<string> > commands;
 	commands.push_back(vector<string>());
-	printf("Number of tokens: %d\n", tokens.size());
+	//printf("Number of tokens: %d\n", tokens.size());
 	for (int i=0; i < tokens.size(); i++) {
 		if (tokens[i] == "|") {
 			commands.push_back(vector<string>());
@@ -466,99 +427,118 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 
 	// We need two pipes. One on either end of a 'middle' process. if they aren't used, they aren't used
 	// TODO: pipes
-	//int ipc_old[2];
-	//int ipc_new[2];
+	int ipc_old[2];
+	int ipc_new[2];
 	int return_val = 0;
 
-	printf("Commands: %d\n", commands.size());
-	for (int i=0; i < commands.size(); i++) {
-		printf("Searching for <\n");
-		bool has_filein = false;
+	//printf("Commands: %d\n", commands.size());
+	for (int i=0; i < commands.size(); i++) { 
+		//printf("Command: %s\n", commands[i][0].c_str());
+		for (int j=0; j < commands[i].size(); j++) {
+			//printf("Arg %d: %s\n", j, commands[i][j].c_str());
+		}
+		bool has_pipein = i > 0;
+		bool has_pipeout = i < commands.size()-1;
+
+		// filein is the index that has the file name
+		int filein = -1;
 		for (int j=0; j < commands[i].size(); j++) {
 			if (commands[i][j] == "<") {
-				has_filein = true;
-				break;
+				filein = j;
+				break; } }
+
+		char* fi_name = NULL;
+		char* fo_name = NULL;
+		int read_type = -1;
+		int write_type = -1;
+		for (vector<string>::iterator j = commands[i].begin(); j != commands[i].end(); j++) {
+			if (*j == ">") {
+				commands[i].erase(j);
+				fo_name = strdup((*j).c_str());
+				write_type = O_WRONLY & O_APPEND;
+				commands[i].erase(j);
+				break; }
+			if (*j == ">>") {
+				commands[i].erase(j);
+				fo_name = strdup((*j).c_str());
+				write_type = O_WRONLY;
+				commands[i].erase(j);
+				break; }
+			if (*j == "<") {
+				commands[i].erase(j);
+				fi_name = strdup((*j).c_str());
+				read_type = O_RDONLY;
+				commands[i].erase(j);
+				break; }
+		}
+		
+		//printf("Setting up handlers for %s\n", commands[i][0].c_str());
+		// Setup the file handlers
+		int handlers[3];
+		int save_status[3];
+
+		for (int j=0; j < 3; j++) {
+			handlers[j] = j;
+			save_status[j] = dup(j);
+		}
+
+		if (fi_name) {
+			handlers[0] = open(fi_name, read_type);
+		}
+		if (has_pipein) {
+			if (fi_name) {
+				// close the pipe. We want the file instead
+				close(ipc_old[0]);
+			} else {
+				// read from the pipe
+				handlers[0] = ipc_old[0];
 			}
 		}
-		int handlers[3];
 
-		// load handlers up with my process'
-		//dup2(0, handlers[0]);
-		dup2(open("test.txt"), handlers[0]);	// assume it's successful
-		dup2(1, handlers[1]);
-		dup2(2, handlers[2]);
-
-		// open up a file
+		if (fo_name) {
+			handlers[1] = open(fo_name, write_type);
+		}
+		//printf("Pipe out? %d\n", has_pipeout);
+		if (has_pipeout) {
+			if (fo_name) {
+				// don't write to pipe
+				// close(ipc_new[1]);
+				// no worries. ipc_new is trash
+			} else {
+				pipe(ipc_new);
+				handlers[1] = ipc_new[1];
+			}
+		}
 		
-		execute_command(commands[i], handlers);
+		for (int j=0; j < 3; j++) {
+			if (handlers[j] != j) {
+				//printf("Duping %u to %u\n", handlers[j], j);
+				dup2(handlers[j], j);
+			}
+		}
+		
+		printf("Executing %s\n", commands[i][0].c_str());
+		return_val = execute_command(commands[i], 0, 1);
 
+		printf("Closing handlers\n");
 		for (int i=0; i < 3; i++) {
 			//int close_status = close(handlers[i]);	// dunno what to do with the close_status
 			//TODO: close detection?
+			close(handlers[i]);
+
+			// reset status
+			dup2(save_status[i], i);
 		}
-		/*
-		// fork and exec!
-		//printf("Pre Forking!\n");
-		int id = fork();
-		//printf("Post Forking!\n");
-		if (id == 0) {
-			bool has_com_after = i < commands.size()-1;
-			bool has_com_before = i > 0;
-			// I'm the child
-			printf("I'm the child! ipc_old[0]=%u ipc_old[1]=%u\n", ipc_old[0], ipc_old[1]);
-
-			// Setup input
-			if (has_com_before) {
-				// don't need write_side
-				close(ipc_old[1]);
-
-				// pipe -> stdin
-				dup2(ipc_old[0], 0);
-			}
-			if (has_filein) {
-				// dup2(file, 0);
-			}
-
-			// Setup output
-			if (has_com_after) {
-				// Setup a new pipe
-				pipe(ipc_new);
-
-				// don't need read-side
-				close(ipc_new[0]);
-				
-				// stdout -> pipe
-				dup2(ipc_new[1], 1);
-			}
-
-			// exec command
-			char** args = vect_to_char(commands[i]);
-			for (int k=0; k < commands[i].size(); k++) {
-				printf("arg %d: %s\n", k, args[k]);
-			}
-			execvp(commands[i][0].c_str(), args);
-			//char* a[] = { "ls", (char*) 0 };
-			//execvp("ls", a);
-
-			// Finish everything up
-			// done reading
-			int close_err = close(ipc_old[0]);	// doesn't matter if it fails. It probably means it's already been closed
-			if (has_com_after) {
-				// new -> old. the old pipe has now served its purpose
-				ipc_old[0] = ipc_new[0];
-				ipc_old[1] = ipc_new[1];
-			}
-		} else if(id > 0) {
-			// I'm the parent
-			printf("I'm the parent!\n");
-			wait(NULL);
-		} else {
-			// Fork failed. We're in trouble
-			printf("Fork failed! AHHH!!!\n");
-			return -1;
+		if (has_pipeout) {
+			close(ipc_new[1]);
 		}
-		*/
+
+		ipc_old[0] = ipc_new[0];
+		ipc_old[1] = ipc_new[1];
+		ipc_new[0] = -1;
+		ipc_new[1] = -1;
 	}
+	return return_val;
 }
 
 
