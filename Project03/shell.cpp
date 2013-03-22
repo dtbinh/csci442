@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <stdio.h>
 #include <string>
 #include <unistd.h>
 #include <vector>
@@ -66,9 +67,6 @@ char* historical_command(string line);
 int execute_external_command(vector<string> tokens) {
 	// exec command
 	char** args = vect_to_char(tokens);
-	//for (int k=0; k < tokens.size(); k++) {
-	//	printf("arg %d: %s\n", k, args[k]);
-	//}
 	return execvp(tokens[0].c_str(), args);
 }
 
@@ -226,7 +224,6 @@ int execute_command(vector<string> tokens, bool run_in_parent, bool parent_waits
 			printf("FORK FAILED! AH MUH GYAD\n");
 		} else if (pid == 0) {
 			// I'm the child
-			printf("I'm the child\n");
 			if (builtin) {
 				exit((*builtin)(tokens));
 			} else {
@@ -237,16 +234,11 @@ int execute_command(vector<string> tokens, bool run_in_parent, bool parent_waits
 			}
 		} else {
 			// I'm the parent
-			printf("I'm the parent. Wait? %d\n", parent_waits);
 			if (parent_waits > 0) {
 				// wait for all children to finish
-				int* child_return = (int*) malloc(sizeof(int));
-				printf("Waiting on child\n");
-				waitpid(pid, child_return, 0);
-				return_value = WEXITSTATUS(*child_return);
-				//wait(NULL);
-				printf("Child returned with %d\n", return_value);
-				//wait(NULL);
+				int child_return;
+				waitpid(pid, &child_return, 0);
+				return_value = WEXITSTATUS(child_return);
 			}
 		}
 	}
@@ -279,7 +271,6 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 	// division into sections which represent individual commands separated by pipe
 	vector< vector<string> > commands;
 	commands.push_back(vector<string>());
-	//printf("Number of tokens: %d\n", tokens.size());
 	for (int i=0; i < tokens.size(); i++) {
 		if (tokens[i] == "|") {
 			commands.push_back(vector<string>());
@@ -288,65 +279,62 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		}
 	}
 
-	/* displays the commands
-	printf("Commands: %d\n", commands.size());
-
-	for (int i=0; i < commands.size(); i++) {
-		printf("New Command. i=%d\n", i);
-		for (int j=0; j < commands[i].size(); j++) {
-			printf("Token: %s\n", commands[i][j].c_str());
-		}
-	}
-	*/
-
 	// We need two pipes. One on either end of a 'middle' process. if they aren't used, they aren't used
-	// TODO: pipes
 	int ipc_old[2];
 	int ipc_new[2];
 	int return_val = 0;
 
-	//printf("Commands: %d\n", commands.size());
 	for (int i=0; i < commands.size(); i++) { 
-		//printf("Command: %s\n", commands[i][0].c_str());
-		for (int j=0; j < commands[i].size(); j++) {
-			//printf("Arg %d: %s\n", j, commands[i][j].c_str());
-		}
 		bool has_pipein = i > 0;
 		bool has_pipeout = i < commands.size()-1;
-
-		// filein is the index that has the file name
-		int filein = -1;
-		for (int j=0; j < commands[i].size(); j++) {
-			if (commands[i][j] == "<") {
-				filein = j;
-				break; } }
 
 		char* fi_name = NULL;
 		char* fo_name = NULL;
 		int read_type = -1;
 		int write_type = -1;
+
 		for (vector<string>::iterator j = commands[i].begin(); j != commands[i].end(); j++) {
 			if (*j == ">") {
 				commands[i].erase(j);
 				fo_name = strdup((*j).c_str());
-				write_type = O_WRONLY & O_APPEND;
+				write_type = O_WRONLY | O_CREAT;
 				commands[i].erase(j);
 				break; }
 			if (*j == ">>") {
 				commands[i].erase(j);
 				fo_name = strdup((*j).c_str());
-				write_type = O_WRONLY;
+				write_type = O_WRONLY | O_APPEND | O_CREAT;
 				commands[i].erase(j);
 				break; }
 			if (*j == "<") {
+				printf("Reading %s\n", (*j).c_str());
 				commands[i].erase(j);
 				fi_name = strdup((*j).c_str());
 				read_type = O_RDONLY;
 				commands[i].erase(j);
 				break; }
+			int f_arr = (*j).find_first_of('>');
+			if (f_arr > 0 && f_arr < (*j).size()-2 && (*j).at(f_arr+1) == '&') {
+				// found a #>&#
+				printf("You want to do WHAT with file descriptors..?\n");
+				int from = atoi(string((*j), 0, f_arr).c_str());
+				string last_part = string((*j), f_arr+2, ((*j).size()-1)-f_arr).c_str();
+				int to = atoi(last_part.c_str());
+
+				// don't worry about this yet
+				// If it doesn't exist, let's error
+				string fd_last = string("/proc/self/fd/") + last_part;
+				printf("Looking at: %s\n", fd_last.c_str());
+				if ( access(fd_last.c_str(), F_OK) == 0) {
+					printf("Ah, I see what you mean\n");
+					dup2(from, to);
+				} else {
+					fprintf(stderr, "File descriptor %s does not exist.\n", string((*j), f_arr+2, ((*j).size()-1)-f_arr).c_str());
+				}
+				commands[i].erase(j);
+			}
 		}
 		
-		//printf("Setting up handlers for %s\n", commands[i][0].c_str());
 		// Setup the file handlers
 		int handlers[3];
 		int save_status[3];
@@ -358,6 +346,9 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 
 		if (fi_name) {
 			handlers[0] = open(fi_name, read_type);
+			if (handlers[0] < 0) {
+				printf("Cannot open file: %s\n", fi_name);
+			}
 		}
 		if (has_pipein) {
 			if (fi_name) {
@@ -370,13 +361,22 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		}
 
 		if (fo_name) {
-			handlers[1] = open(fo_name, write_type);
+			handlers[1] = open(fo_name, write_type, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+													// I think this mode is default for most of the *nix world
+			/* Open modes for arg[2]
+				S_IRUSR 	Set read rights for the owner to true.
+				S_IWUSR 	Set write rights for the owner to true.
+				S_IXUSR 	Set execution rights for the owner to true.
+				S_IRGRP 	Set read rights for the group to true.
+				S_IWGRP 	Set write rights for the group to true.
+				S_IXGRP 	Set execution rights for the group to true.
+				S_IROTH 	Set read rights for other users to true.
+				S_IWOTH 	Set write rights for other users to true.
+				S_IXOTH 	Set execution rights for other users to true.
+			*/
 		}
-		//printf("Pipe out? %d\n", has_pipeout);
 		if (has_pipeout) {
 			if (fo_name) {
-				// don't write to pipe
-				// close(ipc_new[1]);
 				// no worries. ipc_new is trash
 			} else {
 				pipe(ipc_new);
@@ -386,15 +386,12 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		
 		for (int j=0; j < 3; j++) {
 			if (handlers[j] != j) {
-				//printf("Duping %u to %u\n", handlers[j], j);
 				dup2(handlers[j], j);
 			}
 		}
 		
-		printf("Executing %s\n", commands[i][0].c_str());
 		return_val = execute_command(commands[i], 0, 1);
 
-		printf("Closing handlers\n");
 		for (int i=0; i < 3; i++) {
 			//int close_status = close(handlers[i]);	// dunno what to do with the close_status
 			//TODO: close detection?
