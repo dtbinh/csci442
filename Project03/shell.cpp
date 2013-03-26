@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <errno.h>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -10,6 +11,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 
@@ -43,6 +45,43 @@ char** vect_to_char(vector<string> str_list) {
 	return arr;
 }
 
+// Zach Stigall's begins with function
+int begins_with(const char* text, const char* beg) {
+	size_t i=0;
+	//printf("Analysing %s to start with %s\n", text, beg);
+	for (; text[i] && beg[i] != 0 && text[i] == beg[i]; i++);
+	if (i == strlen(beg)) return i;
+	return 0;
+}
+
+// check to see if a vector contains a char* or not
+bool vector_contains(vector<string> vect, const char* match) {
+	string str = string(match);
+
+	for (int i=0; i < vect.size(); i++) {
+		if (str == vect[i])
+			return true;
+	}
+	return false;
+}
+
+char* c_substr(const char* text, size_t pos, size_t len) {
+	//printf("Substring %s, at %d, with length %d\n", text, pos, len);
+	char* subtext = (char*) malloc(sizeof(char) * len+1);
+	memcpy((void*) subtext, &text[pos], len);
+	subtext[len] = '\0';
+	return subtext;
+}
+
+int c_firstof(const char* text, char target) {
+	//printf("In %s, first of %c\n", text, target);
+	int i=0;
+	for (; text[i]; i++) {
+		if (text[i] == target)
+			return i;
+	}
+	return -1;
+}
 
 // The characters that readline will use to delimit words
 const char* const WORD_DELIMITERS = " \t\n\"\\'`@><=;|&{(";
@@ -77,7 +116,7 @@ char* get_prompt(int return_value) {
 	char* ps1 = (char*) calloc(sizeof(char), 255);
 	char* working_dir = pwd();
 	strcat(ps1, working_dir);
-	if (return_value > 0) {
+	if (return_value != 0) {
 		// there was an error
 		strcat(ps1, " =( ");
 	} else {
@@ -120,13 +159,30 @@ char* environment_completion_generator(const char* text, int state) {
 	// If this is the first time called, construct the matches list with
 	// all possible matches
 	if (state == 0) {
-		// TODO: YOUR CODE GOES HERE
+		// char** environ contains all our environment variables
+		//printf("Text is: %s\n", text);
+
+		// Add system environment variables
+		int i=0;
+		for(; environ[i]; i++) {
+			if (begins_with(environ[i], &text[1])) {
+				//printf("Adding: %s\n", environ[i]);
+				matches.push_back("$" + string(c_substr(environ[i], 0, c_firstof(environ[i], '='))));
+			}
+		}
+
+		for (map<string, string>::iterator iter = localvars.begin(); iter != localvars.end(); iter++) {
+			if (begins_with((iter->first).c_str(), &text[1])) {
+				//printf("Adding: %s\n", (iter->first).c_str());
+				matches.push_back("$" + string(iter->first));
+			}
+			
+		}
 	}
 
 	// Return a single match (one for each time the function is called)
 	return pop_match(matches);
 }
-
 
 // Generates commands for readline completion. This function will be called
 // multiple times by readline and will return a single cstring each time.
@@ -134,14 +190,77 @@ char* command_completion_generator(const char* text, int state) {
 	// A list of all the matches;
 	// Must be static because this function is called repeatedly
 	static vector<string> matches;
+	//printf("Text is: %s size: %d\n", text, strlen(text));
 
 	// If this is the first time called, construct the matches list with
 	// all possible matches
 	if (state == 0) {
-		// TODO: YOUR CODE GOES HERE
+		// Fill matches with built ins
+		for (map<string, command>::iterator iter = builtins.begin(); iter != builtins.end(); iter++) {
+			matches.push_back(iter->first);
+		}
+
+		// Fill matches with alias
+		for (map<string, string>::iterator iter = alias_map.begin(); iter != alias_map.end(); iter++) {
+			if (!vector_contains(matches, (iter->first).c_str())) {
+				matches.push_back(iter->first);
+			}
+		}
+	
+		// Fill matches with external commands
+		string path_var = string(getenv("PATH"));
+		int s=0;
+		int e=path_var.find_first_of(':');
+		int cap=0;
+		if (e != -1) {
+			do {
+				string part;
+				if (e != -1) {
+					part = path_var.substr(s, e-s);
+				} else {
+					part = path_var.substr(s, path_var.size() - s);
+				}
+				
+				DIR* pDir = opendir(part.c_str());
+				if (pDir) {
+					for (dirent* current = readdir(pDir); current; current = readdir(pDir)) {
+						//printf("Dir entry: %s\n", current->d_name);
+						struct stat results;
+						char* full_name = (char*) calloc(sizeof(char), (strlen(current->d_name) + part.size() + 2));
+						strcat(full_name, part.c_str());
+						strcat(full_name, "/");
+						strcat(full_name, current->d_name);
+						//full_name[strlen(current->d_name)+part.size()+1] = '\0';
+						int res = stat(full_name, &results);
+						//printf("Looking at file: %s is_dir? %d is_reg?%d\n", full_name, S_ISDIR(results.st_mode), S_ISREG(results.st_mode));
+						if (res == 0
+								&& !S_ISDIR(results.st_mode)
+								&& S_ISREG(results.st_mode)
+								&& results.st_mode & 0111
+								&& begins_with(current->d_name, text)
+								&& !vector_contains(matches, current->d_name)) {
+							//printf("Adding: %s\n", current->d_name);
+							matches.push_back(string(current->d_name));
+						} else {
+							//printf("Not dir\n");
+						}
+						//closedir(current);
+						free(full_name);
+					}
+					closedir(pDir);
+				} else {
+					printf("pDir not opened!\n");
+				}
+
+				s = e+1;
+				e = path_var.find_first_of(':', s);
+			} while (s > 0 && s < path_var.size());
+		}
+		//printf("Done creating the matches\n");
 	}
 
 	// Return a single match (one for each time the function is called)
+	//printf("Now returning matches\n");
 	return pop_match(matches);
 }
 
@@ -151,17 +270,20 @@ char* command_completion_generator(const char* text, int state) {
 char** word_completion(const char* text, int start, int end) {
 	char** matches = NULL;
 
-	if (start == 0) {
-		rl_completion_append_character = ' ';
-		matches = rl_completion_matches(text, command_completion_generator);
-	} else if (text[0] == '$') {
+	if (text[0] == '$') {
+		//printf("General completion\n");
 		rl_completion_append_character = ' ';
 		matches = rl_completion_matches(text, environment_completion_generator);
+	} else if (start == 0) {
+		//printf("Variable completion\n");
+		rl_completion_append_character = ' ';
+		matches = rl_completion_matches(text, command_completion_generator);
 	} else {
 		rl_completion_append_character = '\0';
 		// We get directory matches for free (thanks, readline!)
 	}
 
+	//printf("Done generating all matches\n");
 	return matches;
 }
 
@@ -190,6 +312,11 @@ vector<string> tokenize(const char* line) {
 		}
 	}
 	*/
+
+	// since quotes are part of the word deliminators, we are guaranteed that they will be at the beginning or end of a token
+	//for (vector<string>::iterator i = tokens.begin(); i < tokens.end(); i++) {
+	//	printf("Token: %s\n", (*i).c_str());
+	//}
 
 	return tokens;
 }
@@ -230,6 +357,7 @@ int execute_command(vector<string> tokens, bool run_in_parent, bool parent_waits
 				return_value = execute_external_command(tokens);
 				
 				// wait. Exec failed? aahhhh damn
+				fprintf(stderr, "command not found: %s\n", tokens[0].c_str());
 				exit(-1);
 			}
 		} else {
@@ -244,26 +372,6 @@ int execute_command(vector<string> tokens, bool run_in_parent, bool parent_waits
 	}
 	return return_value;
 }
-
-/*
- *	structure planning
- *
- *	execute_line
- *		create executable 'packets'
- *		loop:
- *			setup pipes/file redirection
- *			fork
- *				dup
- *				execution_step()
- *			close handlers
- *
- * execution_step()
- * 		takes file_handler[3] (in, out, err)
- * 		exec
- * 		call it good. let the parent function close everything
- *
- */
-
 
 // Executes a line of input by either calling execute_external_command or
 // directly invoking the built-in command.
@@ -285,6 +393,14 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 	int return_val = 0;
 
 	for (int i=0; i < commands.size(); i++) { 
+		// check aliases
+		for (map<string, string>::iterator iter=alias_map.begin(); iter != alias_map.end(); iter++) {
+			if ( iter->first == commands[i][0] ) {
+				// replace that token with the aliased one
+				commands[i][0] = string(iter->second);
+			}
+		}
+
 		bool has_pipein = i > 0;
 		bool has_pipeout = i < commands.size()-1;
 
@@ -297,7 +413,7 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 			if (*j == ">") {
 				commands[i].erase(j);
 				fo_name = strdup((*j).c_str());
-				write_type = O_WRONLY | O_CREAT;
+				write_type = O_WRONLY | O_CREAT | O_TRUNC;
 				commands[i].erase(j);
 				break; }
 			if (*j == ">>") {
@@ -307,7 +423,6 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 				commands[i].erase(j);
 				break; }
 			if (*j == "<") {
-				printf("Reading %s\n", (*j).c_str());
 				commands[i].erase(j);
 				fi_name = strdup((*j).c_str());
 				read_type = O_RDONLY;
@@ -316,7 +431,7 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 			int f_arr = (*j).find_first_of('>');
 			if (f_arr > 0 && f_arr < (*j).size()-2 && (*j).at(f_arr+1) == '&') {
 				// found a #>&#
-				printf("You want to do WHAT with file descriptors..?\n");
+				//printf("You want to do WHAT with file descriptors..?\n");
 				int from = atoi(string((*j), 0, f_arr).c_str());
 				string last_part = string((*j), f_arr+2, ((*j).size()-1)-f_arr).c_str();
 				int to = atoi(last_part.c_str());
@@ -324,9 +439,9 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 				// don't worry about this yet
 				// If it doesn't exist, let's error
 				string fd_last = string("/proc/self/fd/") + last_part;
-				printf("Looking at: %s\n", fd_last.c_str());
+				//printf("Looking at: %s\n", fd_last.c_str());
 				if ( access(fd_last.c_str(), F_OK) == 0) {
-					printf("Ah, I see what you mean\n");
+					//printf("Ah, I see what you mean\n");
 					dup2(from, to);
 				} else {
 					fprintf(stderr, "File descriptor %s does not exist.\n", string((*j), f_arr+2, ((*j).size()-1)-f_arr).c_str());
@@ -336,21 +451,26 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		}
 		
 		// Setup the file handlers
-		int handlers[3];
-		int save_status[3];
+		int handlers[2];
+		int save_status[2];
 
-		for (int j=0; j < 3; j++) {
-			handlers[j] = j;
-			save_status[j] = dup(j);
-		}
+		handlers[0] = STDIN_FILENO;
+		save_status[0] = dup(STDIN_FILENO);
+		handlers[1] = STDOUT_FILENO;
+		save_status[1] = dup(STDOUT_FILENO);
 
 		if (fi_name) {
 			handlers[0] = open(fi_name, read_type);
 			if (handlers[0] < 0) {
 				printf("Cannot open file: %s\n", fi_name);
+				handlers[0] = STDIN_FILENO;
 			}
 		}
+
+		//	In the simplest case strace runs the spec
 		if (has_pipein) {
+			// close the side we don't want
+			close(ipc_old[1]);
 			if (fi_name) {
 				// close the pipe. We want the file instead
 				close(ipc_old[0]);
@@ -379,12 +499,17 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 			if (fo_name) {
 				// no worries. ipc_new is trash
 			} else {
-				pipe(ipc_new);
+				int res = pipe(ipc_new);
+				if (res < 0) {
+					// bad stuff is happening
+					fprintf(stderr, "Pipe has failed\n");
+					exit(-1);
+				}
 				handlers[1] = ipc_new[1];
 			}
 		}
-		
-		for (int j=0; j < 3; j++) {
+
+		for (int j=0; j < 2; j++) {
 			if (handlers[j] != j) {
 				dup2(handlers[j], j);
 			}
@@ -392,13 +517,12 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		
 		return_val = execute_command(commands[i], 0, 1);
 
-		for (int i=0; i < 3; i++) {
-			//int close_status = close(handlers[i]);	// dunno what to do with the close_status
-			//TODO: close detection?
-			close(handlers[i]);
+		for (int j=0; j < 2; j++) {
+			close(j);
 
 			// reset status
-			dup2(save_status[i], i);
+			if (save_status[j] != j)
+				dup2(save_status[j], j);
 		}
 		if (has_pipeout) {
 			close(ipc_new[1]);
@@ -406,8 +530,8 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 
 		ipc_old[0] = ipc_new[0];
 		ipc_old[1] = ipc_new[1];
-		ipc_new[0] = -1;
-		ipc_new[1] = -1;
+		//ipc_new[0] = -1;
+		//ipc_new[1] = -1;
 	}
 	return return_val;
 }
