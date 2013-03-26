@@ -512,6 +512,7 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 		for (int j=0; j < 2; j++) {
 			if (handlers[j] != j) {
 				dup2(handlers[j], j);
+				close(handlers[j]);
 			}
 		}
 		
@@ -521,8 +522,10 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
 			close(j);
 
 			// reset status
-			if (save_status[j] != j)
+			if (save_status[j] != j) {
 				dup2(save_status[j], j);
+				close(save_status[j]);
+			}
 		}
 		if (has_pipeout) {
 			close(ipc_new[1]);
