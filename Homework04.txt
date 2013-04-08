@@ -1,0 +1,208 @@
+9.5	Preemptive vs non-preemptive scheduling
+	With preemptive scheduling, each time a process begins to execute, it is given a time to live. After which,
+	the process stops executing, and provides an opportunity for the scheduling service to schedule another
+	process.
+
+	Nonpreemptive scheduling lets each process execute until completion.
+
+9.6	FCFS scheduling
+	First Come First Server scheduling is a methodology of scheduling where processes are executed in sequential
+	order according to their arrival times. FCFS is also a non-preemptive executor, so if process A arrives
+	first, and executes for 10s, but after 1s, process B arrives, then process B must wait until process A is
+	done executing. This way also can't starve a process. All processes will indeed execute. It just may take
+	some time to get to it.
+	
+9.7	Round Robin
+	RR is a preemptive scheduler that tries to be fair to all processes. Each process is given a preemption
+	(called the quantum), and after execution, the next process is given a turn. The first process won't be
+	given a turn for execution until all other processes have been given a time slice. This method also guarantees
+	no starvation. So long as a process is ready to execute, it will have a chance to execute within
+	numProc*quantum time.
+
+9.8	SPN
+	Shortest process next is a non-preemptive scheduling method where a each process must know about how long
+	it will execute, so that the scheduler can give the next execution to the process that would take the 
+	shortest amount of time. Unfortunately, there is a good possibility for starvation with this method. If a long
+	process is trying to execute, but there's a consistent stream of short processes, then the long process
+	would get starved.
+
+9.9	Shortest remaining time
+	SRT scheduling is a preemptive method where a each process reports its remaining execution time, then
+	the process with the lowest value runs next. After each time slice, a check for the shortest remaining
+	is done. This is essentially the preemptive version of SPN. The possibility for starvation is also the 
+	same as SPN. There is a chance for starvation.
+
+9.10	HRRN
+	Highest response ratio next is a non-preemptive scheduling where each process' response ratio is calculated,
+	and the largest value is chosen to execute next. This was designed to combat the starvation of SRT and SPN.
+	The response ratio gets larger as the process gets more neglected. Thus, starvation can only occur
+	if a long process starts executing, where a process can only be starved until the long process finishes.
+
+9.11	feedback
+	Feedback is a preemptive technique that focuses on penalizing long, old processes. Each time slice, the
+	previously executed process is moved down in priority, so it gets executed less. Short processes will finish
+	quickly, since they don't have as big of an opportunity to enter the lower priority levels. This method will
+	increase response time, since new processes gain priority over older ones. However, starvation is still
+	a factor. A long process will continually get superseeded by shorter, newer processes. Traditionally,
+	Feedback does not include promoting processes, but it would be a way to combat the starvation.
+
+
+9.JT: Define the various scheduling criteria (both quantitative and qualitative) that are used in this chapter. Provide equations where appropriate.
+	Some criteria used to judge scheduling algorithms include:
+		- response time (time until the process is first executed)
+		- throughput (total time the CPU spends executing processes; i.e. not spent in overhead/switching)
+
+10.2 (additionally, give advantages / disadvantages of each)
+	Thread scheduling techniques:
+		1.	Load sharing.
+				Each processor is scheduled independantly, waiting for the next thread in a combined queue of 'work to be done'
+				Advantage: All processors typically get an even distrobution of work
+				Disadvantage:	Paused/preempted threads probably won't execute on the same processor. processor-specific caching may become moot.
+		2.	Gang.
+				Based around coscheduling - schedule related processes to run on the same processor (and therefore sharing the same local cache).
+				Advantage: share local cache
+				Disadvantage: cpu time could be wasted when scheduling similar processes on a processor, leaving the other processors open
+
+		3.	Dedicated Processor Assignment.
+				When a process gets scheduled, each of its threads gets its own dedicated processor, and is executed to completion
+				Advantage:	Much less (if any) process switching. In batch processing, this is very adventageous
+				Disadvantage:	A large amount of threads within one process, executing on a limited number processors becomes extremely inefficient.
+
+		4.	Dynamic Scheduling
+				Uphold the process to do some management over the number of executing threads it's alloted.
+				Advantage:	The scheduler can vary the number of processers allocated to processes, scaling to their needs
+				Disadvantage:	Requires a good amount of overhead to achieve this
+				
+10.3
+	Three versions of load sharing
+		1.	FCFS
+				Each process' threads are placed in a FCFS queue, and distributed to free processors as they come. Each processor runs to completion
+		2.	Smallest number of threads first
+				The thread queue is prioritized, with the highest priority to the process with the smallest number of threads. threads are executed to completion
+		3.	Preemptive smallest number of threads first
+				Like smallest number of threads first, but with preemption. an arriving process will preempt its threads if another thread/process is executing
+10.JT: Define priority inversion; explain a (the) real-world example; what are some potential solutions?  Priority inversion is when a system resource is first locked by a low priority process, then a higher priority process tries to lock the same resource, but is blocked by the lower priority process. The book example is of a low priority process that locks a system resource, and is interrupted (preempted by an incoming process), repeatedly, as they incoming processes realize that they need to wait for the low priority resource to free the system resource. How might this be solved? One option could rely on an override of authority, where if the priority difference between a requesting process and the locking process is high enough, the locking process is revoked of its lock, and is forced to 'try again later.' This would required some sophistication, and overhead, but is a possible solution.
+
+Problems:
+9.2
+	Process	Arrival	Ts
+	A		0		3
+	B		1		5
+	C		3		2
+	D		9		5
+	E		12		5
+
+			A		B		C		D		E
+	FCFS
+	Ft		3		8		10		15		20
+	Tr		3		7		7		6		8
+	Tr/Ts	1		1.4		3.5		1.2		1.6		
+
+	RR q=1
+	Ft		7		11		6		18		20
+	Tr		7		10		3		9		8
+	Tr/Ts	2.33	2		1.5		1.8		1.6
+
+	RR q=4
+	Ft		3		18		9		19		20
+	Tr		3		17		6		10		8
+	Tr/Ts	1		3.4		3.0		2		1.6
+
+	SPN
+	SRT
+	HRRN
+	FB q=1
+	FB q=2
+
+
+9.16
+		Proc	Ts		Priority
+		A		15		6
+		B		9		3
+		C		3		7
+		D		6		9
+		E		12		4
+
+	a.	rr, q=1
+		a	r15
+		b	r9
+		c	r3
+		d	r6
+		e	r12
+		__3 rounds, 5 slices each
+		a	r12
+		b	r6
+		c	done
+		d	r3
+		e	r9
+		__3 rounds, 4 slices  each
+		a	r9
+		b	r3
+		d	done
+		e	r6
+		__3 rounds,	3 slices
+		a	r6
+		b	done
+		e	r3
+		__3 rounds,	2 slices
+		a	r3
+		e	done
+		__3 rounds, final being 45 (good!)
+
+		Process	Tr
+		A		45
+		B		35
+		C		13
+		D		26
+		E		42
+		Avg		32.2
+
+	b.	Priority
+		Proc	Tr
+		A		36
+		B		9
+		C		39
+		D		45
+		E		21
+		Avg		30
+
+	c.	FCFS
+		Proc	Tr
+		A		15
+		B		24
+		C		27
+		D		33
+		E		45
+		Avg		28.8
+
+	d.	SPN
+		Proc	Tr
+		A		45
+		B		18
+		C		3
+		D		9
+		E		30
+		Avg		21
+
+9.JT: Explicitly justify / explain each claim in the last three rows of Table 9.3.
+	Overhead - measure of CPU time used to calculate next scheduled process
+		FCFS is minimal because a switch only occurs when a process finishes.
+		RoundRobin is minimal because the next process is always the next in the unprocessed ready queue
+		SPN can be high bcause it takes CPU time to decide how long the process will take
+		SRT can be high because a calculation must be done for each process
+		HRRN can be high because a 'complex' function must be performed before deciding the next process.
+		Feedback can be high because the record of how long a process has been in each queue must be maintained
+	Effect on process - Goal of the scheduling algorithm on the process schedule
+		FCFS - Penalize short processes by letting a long process execute if it has arrived before the short process
+		RR	- Tries to be fair, and let everyone have a short at executing a little, by switching between processes rapidly
+		SON	- Favors smaller processes by giving them immediate usage of the CPU
+		SRT - Favor processes that are almost done by letting them finish ahead of processes not quite as done
+		HRRN - give processes that have been waiting a long time by calculating it into their priority
+		Feedback - let new and short processes execute first, and penalize longer processes by moving them down in priority as they get executed
+	Starvation - measure of whether a process could get resource starved
+		FCFS - The longest any process will wait is the time for the earlier process to complete
+		RR - By trying to execute all processes evenly, none are neglected
+		SPN - possible if a large process is backgrounded by many sequential short processes
+		SRT - possible if a large process is backgrounded by many sequential short processes
+		HRRN - no, since processes most neglected have a higher response ratio
+		Feedback - possible, if a after a few executions, a large process is in a lower priority queue, and continually gets overshadowed by shorter processes

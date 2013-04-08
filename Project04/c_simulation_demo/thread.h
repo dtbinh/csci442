@@ -1,6 +1,5 @@
 #pragma once
 #include "burst.h"
-#include <vector>
 
 // forward declaration
 struct Process;
@@ -14,7 +13,10 @@ struct Thread {
   int tid;
 
   // all bursts that are a part of this thread
-  std::vector<Burst*> bursts;
+  //std::vector<Burst*> bursts;
+  //
+  // list of bursts that are part of this thread. Last element is NULL
+  Burst** bursts;
 
   // the process assocated with this thread
   Process* process;

@@ -1,0 +1,1035 @@
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+close(3)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7773, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7775, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7776, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7777, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7778, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7779, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7780, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7781, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7782, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7783, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7784, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7785, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7786, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7787, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7788, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7789, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7790, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7791, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7792, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7793, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7794, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7795, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7796, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7797, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7798, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7799, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7800, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7801, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7802, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7803, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7804, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7805, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7806, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7807, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7808, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7809, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7810, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7811, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7812, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7813, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7814, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7815, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7816, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7817, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7818, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7819, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7820, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7821, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7822, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7823, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7824, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7825, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7826, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7827, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7828, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7829, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7830, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7831, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7832, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7833, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7834, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7835, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7836, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7837, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7838, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7839, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7840, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7841, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7842, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7843, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7844, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7846, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7847, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7848, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7849, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7850, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7851, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7852, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7853, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7855, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7856, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7857, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7858, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7859, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7860, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7861, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7862, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7863, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7864, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7865, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7866, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7867, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7868, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7869, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7870, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7871, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7872, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7873, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7874, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7875, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7876, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7877, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7878, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7879, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7880, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7881, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7882, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7883, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7884, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7885, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7886, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7887, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7888, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7889, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7890, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7891, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7892, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7893, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7894, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7895, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7896, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7897, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7898, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7899, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7900, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7901, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7902, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7903, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7904, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7905, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7906, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7907, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7908, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7910, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7911, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7912, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7913, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7914, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7915, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7916, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7917, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7918, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7919, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7920, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7921, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7922, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7923, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7924, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7925, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7926, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7927, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7928, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7929, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7930, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7931, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7932, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7933, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7934, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7935, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7936, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7937, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7938, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7939, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7940, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7941, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7942, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7943, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7944, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7946, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7947, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7948, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7949, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7950, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7951, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7952, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7953, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7954, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7955, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7956, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7957, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7958, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7959, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7960, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7961, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7962, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7963, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7964, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7965, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7966, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7967, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7968, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7969, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7970, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7971, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7973, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7974, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7975, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7976, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7977, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7978, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7979, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7980, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7981, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7982, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7983, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7984, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7985, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7986, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7987, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7988, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7989, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7990, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7991, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7992, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7993, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7994, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7995, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7996, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7997, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7999, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8000, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8001, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8002, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8003, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8004, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8005, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8006, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8007, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8008, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8009, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8010, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8011, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8012, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8013, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8014, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8015, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8016, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8017, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8018, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8019, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8020, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8021, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8022, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8023, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8024, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8025, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8026, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8027, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8028, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8029, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8030, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8031, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8032, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8033, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8034, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8035, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8036, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8037, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8039, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8040, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8041, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8042, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8043, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8044, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8045, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8046, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8047, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8048, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8049, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8050, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8051, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8052, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8053, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8054, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8055, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8056, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8057, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8058, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8059, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8060, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8061, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8062, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8063, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8064, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8065, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8066, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8067, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8068, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8069, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8070, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8071, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8072, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8073, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8074, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8075, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8076, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8077, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8078, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8079, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8080, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8081, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8082, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8083, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8084, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8085, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8086, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8087, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8088, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8089, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8090, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8091, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8092, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8093, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8094, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8095, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8096, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8097, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8098, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8099, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8100, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8101, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8103, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8104, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8105, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8106, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8107, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8108, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8109, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8110, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8111, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8112, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8113, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8114, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8115, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8116, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8117, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8118, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8119, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8120, si_status=0, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8121, si_status=127, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=8122, si_status=127, si_utime=0, si_stime=0} ---
+close(0)                                = 0
+close(1)                                = 0
++++ exited with 0 +++

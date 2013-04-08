@@ -1,0 +1,3 @@
+Executing echo
+"hi"
+Closing handlers

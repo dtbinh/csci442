@@ -1,0 +1,16 @@
+ed
+I'm the parent. Wait? 1
+Waiting on child
+I'm the child
+Executing sed
+I'm the parent. Wait? 1
+Waiting on child
+I'm the child
+Executing echo
+echo cat
+Closing handlers
+Child returned with 0
+Closing handlers
+Child returned with 0
+Closing handlers
+

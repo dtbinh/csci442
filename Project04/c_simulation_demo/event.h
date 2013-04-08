@@ -2,7 +2,6 @@
 #include "thread.h"
 #include "burst.h"
 #include "process.h"
-#include <iostream>
 
 
 struct Event {
@@ -29,7 +28,7 @@ struct Event {
 
 // comparator for std::priority_queue to correctly order event pointers
 struct EventComparator {
-  bool operator()(Event* e1, Event* e2) {
+  int operator()(Event* e1, Event* e2) {
      return e1->time >= e2->time;
   }
 };

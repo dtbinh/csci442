@@ -1,15 +1,15 @@
 PROGRAM = sim
-CXX = g++
-CXXFLAGS = -g -Wall
+CC = g++
+CCFLAGS = -g -Wall
 OBJECTS := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 
 all:    $(PROGRAM)
 
 .cpp.o :
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 
 $(PROGRAM): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(PROGRAM) $(OBJECTS)
+	$(CC) $(CCFLAGS) $(LDFLAGS) -o $(PROGRAM) $(OBJECTS)
 
 clean:
 	rm -f *.o *.exe $(PROGRAM)
