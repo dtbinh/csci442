@@ -43,32 +43,9 @@ class MultiLevelFeedbackScheduler(Scheduler):
             #print("Time = %i, and %i has CPU BURST DONE" % (self.cpu.cpu_time, event.thread.tid))
         elif event.action == Actions.SWITCH_DONE:
             #print("Time = %i, and %i has switch done" % (self.cpu.cpu_time, event.thread.tid))
-            # Start executing it right now.
-            next_thread = event.thread
+            # Start executing it right now by forcing the next thread to be this one
+            self.schedule_next_thread(event, event.thread)
 
-            if next_thread.has_next():
-                next_burst = next_thread.next_burst_time()
-                #print("Next burst for thread: " + str(next_burst))
-
-                if next_burst:
-                    if next_burst[1] == Actions.IO_BURST_DONE:
-                        current_action = Actions.IO_BURST_START
-                    elif next_burst[1] == Actions.CPU_BURST_DONE:
-                        current_action = Actions.CPU_BURST_START
-                    else:
-                        sys.stderr.write("Not sure what the Action for the Next Burst is supposed to be")
-                        return
-                    stats.add_entry(self.cpu.cpu_time, next_thread, current_action)
-                    formalize_output(cpu.cpu_time, Event(cpu.cpu_time, next_thread, current_action))
-
-                    next_event = Event(self.cpu.cpu_time + next_burst[0], next_thread, next_burst[1])
-                    heapq.heappush(self.cpu.event_queue, next_event)
-                    self.cpu.current_event = next_event
-                    #formalize_output(cpu.cpu_time, next_event)
-                else:
-                    # this thread is all out of bursts. Uhhh what now?
-                    sys.stderr.write("A thread claimed to have remaining bursts, but it returned None. Wat?")
-                    pass
 
         #if self.cpu.current_event:
             #print("The CPU's current event will finish at %i, and is %s" % (self.cpu.current_event.time, reverse_actions(self.cpu.current_event.action)))
@@ -78,58 +55,68 @@ class MultiLevelFeedbackScheduler(Scheduler):
         # Also, we'll still maintain that after a switch is done, we need to do that work first
         if event.action != Actions.SWITCH_DONE and self.cpu.current_event == event:
             #print("Time = %i, and time to look for a new thread" % (self.cpu.cpu_time))
-            # Figure out what the next event to add will benext
-            # Get the lowest priority thread
+            self.schedule_next_thread(event)
+
+
+    # Figure out what the next event to add will be next
+    def schedule_next_thread(self, last_event, force_thread=None):
+        # Get the lowest priority thread
+        if force_thread:
+            next_thread = force_thread
+        else:
             next_thread = self.get_next_thread()
-            if next_thread:
-                #print("Time = %i, and got the next thread" % (self.cpu.cpu_time))
+
+        if next_thread:
+            #print("Time = %i, and got the next thread" % (self.cpu.cpu_time))
+            next_action = None
+            if next_thread.has_next():
+                # To bootstrap, the cpu's first action is an arrival. If the CPU starts there, then we need to do a proc-swap
                 delay = 0
-                next_action = None
-                if next_thread.has_next():
-                    # To bootstrap, the cpu's first action is an arrival. If the CPU starts there, then we need to do a proc-swap
-                    if self.cpu.current_event is None or next_thread.parent_process != event.thread.parent_process or self.cpu.current_event.action == Actions.ARRIVAL:
-                        print("Proc swap needed")
-                        delay += self.cpu.proc_overhead
-                    elif next_thread.tid != event.thread.tid:
-                        print("Thread swap needed")
-                        delay += self.cpu.thread_overhead
+                if self.cpu.current_event is None or next_thread.parent_process != last_event.thread.parent_process or self.cpu.current_event.action == Actions.ARRIVAL:
+                    print("Proc swap needed")
+                    delay += self.cpu.proc_overhead
+                elif next_thread.tid != last_event.thread.tid:
+                    print("Thread swap needed")
+                    delay += self.cpu.thread_overhead
 
-                    #print("Delay is %i" % (delay))
-                    if delay > 0:
-                        current_action = Actions.SWITCH_START
-                        next_action = Actions.SWITCH_DONE
-                    else:
-                        #print("Proc/Thread already swapped in")
-                        next_burst = next_thread.next_burst_time()
-                        if next_burst:
-                            next_action = next_burst[1]
-                            delay += next_burst[0]
-                            if next_burst[1] == Actions.IO_BURST_DONE:
-                                current_action = Actions.IO_BURST_START
-                            elif next_burst[1] == Actions.CPU_BURST_DONE:
-                                current_action = Actions.CPU_BURST_START
-                            else:
-                                sys.stderr.write("Not sure what the Action for the Next Burst is supposed to be")
-                                return
+                #print("Delay is %i" % (delay))
+                if delay > 0:
+                    current_action = Actions.SWITCH_START
+                    next_action = Actions.SWITCH_DONE
+                else:
+                    #print("Proc/Thread already swapped in")
+                    next_burst = next_thread.next_burst_time()
+                    if next_burst:
+                        next_action = next_burst[1]
+                        delay += next_burst[0]
+                        if next_burst[1] == Actions.IO_BURST_DONE:
+                            current_action = Actions.IO_BURST_START
+                        elif next_burst[1] == Actions.CPU_BURST_DONE:
+                            current_action = Actions.CPU_BURST_START
                         else:
-                            # Well, that thread must be done executing. Cool!
-                            #stats.add_entry(self.cpu.cpu_time, next_thread, event.action)
+                            sys.stderr.write("Not sure what the Action for the Next Burst is supposed to be")
                             return
-                    #print("CPU THYME %i, next_action = %s" % (self.cpu.cpu_time, reverse_actions(next_action)))
-                    stats.add_entry(self.cpu.cpu_time, next_thread, current_action)
-                    formalize_output(cpu.cpu_time, Event(cpu.cpu_time, next_thread, current_action))
+                    else:
+                        # Well, that thread must be done executing. Cool!
+                        #stats.add_entry(self.cpu.cpu_time, next_thread, last_event.action)
+                        sys.stderr.write("A thread claimed that it had remaining bursts, but it did not. Wtf?")
+                        return
+                #print("CPU THYME %i, next_action = %s" % (self.cpu.cpu_time, reverse_actions(next_action)))
+                stats.add_entry(self.cpu.cpu_time, next_thread, current_action)
+                formalize_output(cpu.cpu_time, Event(cpu.cpu_time, next_thread, current_action))
 
-                    #print("Scheduled next event %s for time %i" % (reverse_actions(next_action), self.cpu.cpu_time+delay))
-                    next_event = Event(self.cpu.cpu_time + delay, next_thread, next_action)
-                    heapq.heappush(self.cpu.event_queue, next_event)
-                    #print("Setting the CPU's current action to %s, and will happen at %i" % (reverse_actions(next_event.action), next_event.time))
-                    self.cpu.current_event = next_event
-
-
+                #print("Scheduled next event %s for time %i" % (reverse_actions(next_action), self.cpu.cpu_time+delay))
+                next_event = Event(self.cpu.cpu_time + delay, next_thread, next_action)
+                heapq.heappush(self.cpu.event_queue, next_event)
+                #print("Setting the CPU's current action to %s, and will happen at %i" % (reverse_actions(next_event.action), next_event.time))
+                self.cpu.current_event = next_event
             else:
-                # There's nothing we can execute right now. Just wait for the next event to happen
-                print("Cpu sitting idle")
+                # Thread has no more work to do. Cool. Let's forget about it then.
                 pass
+        else:
+            # no known threads left to execute. So, we're either done, or waiting on IO
+            pass
+
 
     def get_next_thread(self):
         for q in self.priority_queues:
