@@ -11,6 +11,7 @@ function printUsage {
 	exit
 }
 
+INPUTDIR="."
 while getopts "hd:s:o" opt 
 	do
 	case $opt in
@@ -25,7 +26,7 @@ while getopts "hd:s:o" opt
 		INPUTDIR=$OPTARG
 		;;
 	d)
-		if ![ -e $OPTARG && -d $OPTARG];
+		if [ ! -e $OPTARG || ! -d $OPTARG];
 			then
 			printUsage
 		fi
@@ -62,7 +63,7 @@ fi
 echo "<!DOCTYPE html><html><head></head><body>" > $OUTPUT
 
 oldPWD=$PWD
-cd $INPUTDIR
+#cd $INPUTDIR
 for machine in $(ls $INPUTDIR);
 	do
 	
@@ -88,8 +89,8 @@ for machine in $(ls $INPUTDIR);
 		if(failure) {
 			print \"<div index=$machine style='background-color:grey' ><h1>$machine</h1>Could not connect to host</div>\";
 		} else { 
-			if (memusageratio() < .33) { load=\"green\"; }
-			else if (memusageratio() < .66) { load=\"yellow\"; }
+			if (memusageratio() < 0.33) { load=\"green\"; }
+			else if (memusageratio() < 0.66) { load=\"yellow\"; }
 			else { load=\"red\"; }
 		print \"<div index=$machine style='background-color:\"load\"' >\n\",
 \"		<h1>$machine</h1>\n\",

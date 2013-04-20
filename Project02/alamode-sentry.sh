@@ -2,7 +2,7 @@
 
 # Script to monitor a remote machine's status
 
-function printUsage {
+printUsage() {
 		echo """Usage: alamode-sentry [options] (-n HOSTNAME | -f FILENAME) [-d directory]
 Options:
 	-h				help
@@ -165,7 +165,7 @@ for HNAME in $HOSTS;
 	else
 		ssh -oConnectTimeout=10 $UNAME$HNAME $command > $SAVEDIR/$HNAME
 	fi
-	if [[ $? != 0 ]];
+	if [ $? != 0 ];
 		then
 		# SSH has failed
 		if [ -n "$SOUT" ];
