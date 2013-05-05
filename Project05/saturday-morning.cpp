@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     threads.create_thread(p);
 
     // Wait to create the next thread
-    make_thread_sleep(control_file.data[i].sleep);
+    make_thread_sleep(control_file.data[i].sleep/20);
     ++id;
   }
 

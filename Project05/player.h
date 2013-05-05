@@ -28,10 +28,10 @@ public:
 
 		boost::mutex::scoped_lock io_lock(io_mutex);
 
-        if (!int_in(*(gc->party_nums), &myParty) ) {
+        if (!int_in(gc->party_nums, &myParty) ) {
             // create their party barrier
-            gc->party_nums->push_back(new int(myParty));
-            gc->party_barrier->push_back(new boost::barrier(4));
+            gc->party_nums.push_back(new int(myParty));
+            gc->party_barriers.push_back(new boost::barrier(4));
         }
 
 		cout << "+++++ Player #" << myId << " (" << myName
@@ -39,7 +39,7 @@ public:
 	}
 
 	bool int_in(vector<int*> vect, int* item) {
-        for ( int i=0; i < vect->size(); i++) {
+        for ( int i=0; i < vect.size(); i++) {
             if ( *(vect[i]) == *item ) {
                 return true;
             }
@@ -48,7 +48,7 @@ public:
 	}
 
 	bool int_find(vector<int*> vect, int* item) {
-        for ( int i=0; i < vect->size(); i++) {
+        for ( int i=0; i < vect.size(); i++) {
             if ( *(vect[i]) == *item ) {
                 return i;
             }
@@ -92,15 +92,52 @@ public:
 				 << ") waiting for hole " << hole << endl;
 		}
         // wait for your party to catch-up
-        gc->party_barriers[int_find(gc->party_barriers, &myParty)]->wait();
+		int party_index = int_find(gc->party_nums, &myParty);
+        bool i_have_responsibility = gc->party_barriers[party_index]->wait();
 
         gc->hole_barriers[hole]->wait();
-        boost::shared_lock lock(*(gc->hole_locks[hole]));
 
-        while ((gc->party_playing_hole[hole]) != myParty && (gc->party_playing_hole[hole]) != -1) {
-            gc->hole_conditions[hole].wait(lock);
-        }
-		
+		boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]), boost::defer_lock);
+		if (i_have_responsibility) {
+			if (DEBUG) {
+				boost::mutex::scoped_lock io_lock(io_mutex);
+				cout << "##### Player #" << myId << " (" << myName
+					 << ") has responsibility! " << endl;
+			}
+
+			while (*(gc->party_playing_hole[hole]) != myParty && *(gc->party_playing_hole[hole]) != -1) {
+				if (DEBUG) {
+					boost::mutex::scoped_lock io_lock(io_mutex);
+					cout << "##### Player #" << myId << " (" << myName
+						 << ") Is waiting on the condition variable " << endl;
+				}
+
+				gc->hole_conditions[hole]->wait(lock);
+
+				if (*(gc->party_playing_hole[hole]) != myParty && *(gc->party_playing_hole[hole]) != -1) {
+					if (DEBUG) {
+						boost::mutex::scoped_lock io_lock(io_mutex);
+						cout << "##### Player #" << myId << " (" << myName
+							 << ") ah. seems I can't use the hole " << hole << endl;
+					}
+					lock.unlock();
+					gc->hole_conditions[hole]->notify_all();
+				}
+			}
+
+			if (DEBUG) {
+				boost::mutex::scoped_lock io_lock(io_mutex);
+				cout << "##### Player #" << myId << " (" << myName
+					 << ") gaining control over the hole " << hole << endl;
+			}
+
+			free(gc->party_playing_hole[hole]);
+			gc->party_playing_hole[hole] = new int(myParty);
+		}
+		// wait for our resident party member to finish inter-group negotiations
+        gc->party_barriers[party_index]->wait();
+
+		// acquire hole-lock
 
 		// Syntax is a little funny because we have a pointer to a generator.
 		// Normally, you just call generator()
@@ -113,7 +150,34 @@ public:
 				 << sleep_duration << " seconds." << endl;
 		}
 
-		make_thread_sleep(sleep_duration);
+		make_thread_sleep(sleep_duration/20);
+
+		// release hole-lock
+		//
+		if (DEBUG) {
+			boost::mutex::scoped_lock io_lock(io_mutex);
+			cout << "Player #" << myId << " (" << myName
+				 << ") finished playing hole " << hole << " it took "
+				 << sleep_duration << " seconds." << endl;
+		}
+
+
+
+		// wait for party to finish
+		gc->party_barriers[party_index]->wait();
+
+		if (i_have_responsibility) {
+			//lock.unlock();
+			free(gc->party_playing_hole[hole]);
+			gc->party_playing_hole[hole] = new int(-1);
+
+			gc->hole_conditions[hole]->notify_all();
+			if (DEBUG) {
+				boost::mutex::scoped_lock io_lock(io_mutex);
+				cout << "----- Player #" << myId << " (" << myName
+					 << ") notified all on hole " << hole << endl;
+			}
+		}
 
 		if (DEBUG) {
 			boost::mutex::scoped_lock io_lock(io_mutex);

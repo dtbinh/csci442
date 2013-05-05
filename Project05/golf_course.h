@@ -19,7 +19,7 @@ struct GolfCourse {
             party_barriers.push_back(new boost::barrier(4));
             party_playing_hole.push_back(new int(-1));
             hole_locks.push_back(new boost::mutex());
-            hole_conditions.push_back(new condition_variable);
+            hole_conditions.push_back(new boost::condition_variable());
 		}
 	}
 
