@@ -3,23 +3,17 @@
 #include <vector>
 
 struct GolfCourse {
-    vector<boost::barrier*> hole_barriers;
     vector<boost::barrier*> party_barriers;
     vector<boost::mutex*> hole_locks;
-    vector<boost::condition_variable*> hole_conditions;
 
     vector<int*> party_nums;
-    vector<int*> party_playing_hole;
 
 	GolfCourse() {
 		for (int i = 0; i < 18; i++) {
 			// This is where you will initialize your barriers, condition variables,
 			// and any other shared variables or synchronization primitives.
-            hole_barriers.push_back(new boost::barrier(4));
             party_barriers.push_back(new boost::barrier(4));
-            party_playing_hole.push_back(new int(-1));
             hole_locks.push_back(new boost::mutex());
-            hole_conditions.push_back(new boost::condition_variable());
 		}
 	}
 

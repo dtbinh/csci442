@@ -6,6 +6,7 @@
 #include <boost/thread/thread.hpp>
 #include <boost/thread/xtime.hpp>
 #include <ctime>
+#include <cstdio>
 
 class Player {
 public:
@@ -28,28 +29,32 @@ public:
 
 		boost::mutex::scoped_lock io_lock(io_mutex);
 
-        if (!int_in(gc->party_nums, &myParty) ) {
+        if (!int_in(gc->party_nums, myParty) ) {
             // create their party barrier
+			printf("Adding party %i to the list of parties\n", *(&myParty));
+
             gc->party_nums.push_back(new int(myParty));
             gc->party_barriers.push_back(new boost::barrier(4));
-        }
+        } else {
+			printf("Party %i already exists in the list of parties at the index %i\n", myParty, int_find(gc->party_nums, myParty));
+		}
 
 		cout << "+++++ Player #" << myId << " (" << myName
 			 << ") added to party " << myParty << endl;
 	}
 
-	bool int_in(vector<int*> vect, int* item) {
+	bool int_in(vector<int*> vect, int item) {
         for ( int i=0; i < vect.size(); i++) {
-            if ( *(vect[i]) == *item ) {
+            if ( *(vect[i]) == item ) {
                 return true;
             }
         }
         return false;
 	}
 
-	bool int_find(vector<int*> vect, int* item) {
+	bool int_find(vector<int*> vect, int item) {
         for ( int i=0; i < vect.size(); i++) {
-            if ( *(vect[i]) == *item ) {
+            if ( *(vect[i]) == item ) {
                 return i;
             }
         }
@@ -91,11 +96,17 @@ public:
 			cout << "##### Player #" << myId << " (" << myName
 				 << ") waiting for hole " << hole << endl;
 		}
-        // wait for your party to catch-up
+
 		int party_index = int_find(gc->party_nums, &myParty);
+		if (DEBUG) {
+			boost::mutex::scoped_lock io_lock(io_mutex);
+			printf("##### Player # %i (%s) myGroup: %i party_index: %i\n", myId, myName.c_str(), myParty, party_index);
+		}
+        // wait for your party to catch-up
+
         bool i_have_responsibility = gc->party_barriers[party_index]->wait();
 
-        gc->hole_barriers[hole]->wait();
+        //gc->hole_barriers[hole]->wait();
 
 		boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]), boost::defer_lock);
 		if (i_have_responsibility) {
@@ -105,35 +116,15 @@ public:
 					 << ") has responsibility! " << endl;
 			}
 
-			while (*(gc->party_playing_hole[hole]) != myParty && *(gc->party_playing_hole[hole]) != -1) {
-				if (DEBUG) {
-					boost::mutex::scoped_lock io_lock(io_mutex);
-					cout << "##### Player #" << myId << " (" << myName
-						 << ") Is waiting on the condition variable " << endl;
-				}
-
-				gc->hole_conditions[hole]->wait(lock);
-
-				if (*(gc->party_playing_hole[hole]) != myParty && *(gc->party_playing_hole[hole]) != -1) {
-					if (DEBUG) {
-						boost::mutex::scoped_lock io_lock(io_mutex);
-						cout << "##### Player #" << myId << " (" << myName
-							 << ") ah. seems I can't use the hole " << hole << endl;
-					}
-					lock.unlock();
-					gc->hole_conditions[hole]->notify_all();
-				}
-			}
+			lock.lock();
 
 			if (DEBUG) {
 				boost::mutex::scoped_lock io_lock(io_mutex);
 				cout << "##### Player #" << myId << " (" << myName
-					 << ") gaining control over the hole " << hole << endl;
+					 << ") gained control over the hole " << hole << endl;
 			}
-
-			free(gc->party_playing_hole[hole]);
-			gc->party_playing_hole[hole] = new int(myParty);
 		}
+
 		// wait for our resident party member to finish inter-group negotiations
         gc->party_barriers[party_index]->wait();
 
@@ -161,17 +152,12 @@ public:
 				 << sleep_duration << " seconds." << endl;
 		}
 
-
-
 		// wait for party to finish
 		gc->party_barriers[party_index]->wait();
 
 		if (i_have_responsibility) {
-			//lock.unlock();
-			free(gc->party_playing_hole[hole]);
-			gc->party_playing_hole[hole] = new int(-1);
+			lock.unlock();
 
-			gc->hole_conditions[hole]->notify_all();
 			if (DEBUG) {
 				boost::mutex::scoped_lock io_lock(io_mutex);
 				cout << "----- Player #" << myId << " (" << myName
