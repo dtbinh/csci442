@@ -16,7 +16,7 @@ DEPENDS =
 all: $(TARGETS)
 
 saturday-morning: saturday-morning.o $(DEPENDS) $(HEADERS)
-	$(CC) -o $@ $(LFLAGS) $< $(DEPENDS) $(LIBS)
+	$(CC) -o ../$@ $(LFLAGS) $< $(DEPENDS) $(LIBS)
 
 clean:
 	rm -f $(TARGETS) *.o *~

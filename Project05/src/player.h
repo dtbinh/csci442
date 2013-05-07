@@ -91,32 +91,41 @@ public:
 	// This is the function where you will spend the most effort. I left a few
 	// fragments from my solution, but it will need lots of modification.
 	void playHole(int hole) {
-		if (DEBUG) {
-			boost::mutex::scoped_lock io_lock(io_mutex);
-			cout << "##### Player #" << myId << " (" << myName
-				 << ") waiting for hole " << hole << endl;
+
+		if (*(gc->hole_locked[hole])) {
+			if (DEBUG) {
+				boost::mutex::scoped_lock io_lock(io_mutex);
+				cout << "##### Player #" << myId << " (" << myName
+					 << ") waiting for hole " << hole << endl;
+			}
 		}
 
-		int party_index = int_find(gc->party_nums, &myParty);
+		//int party_index = int_find(gc->party_nums, myParty);
+		/*
 		if (DEBUG) {
 			boost::mutex::scoped_lock io_lock(io_mutex);
-			printf("##### Player # %i (%s) myGroup: %i party_index: %i\n", myId, myName.c_str(), myParty, party_index);
+			printf("##### Player # %i (%s) myGroup: %i party_index: %i\n", myId, myName.c_str(), myParty, myParty);
 		}
+		*/
         // wait for your party to catch-up
 
-        bool i_have_responsibility = gc->party_barriers[party_index]->wait();
+        bool i_have_responsibility = gc->party_barriers[myParty]->wait();
 
         //gc->hole_barriers[hole]->wait();
 
-		boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]), boost::defer_lock);
+		//boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]), boost::defer_lock);
 		if (i_have_responsibility) {
+			/*
 			if (DEBUG) {
 				boost::mutex::scoped_lock io_lock(io_mutex);
 				cout << "##### Player #" << myId << " (" << myName
 					 << ") has responsibility! " << endl;
 			}
+			*/
+			gc->hole_locks[hole]->lock();
+			*(gc->hole_locked[hole]) = true;
 
-			lock.lock();
+			//lock.lock();
 
 			if (DEBUG) {
 				boost::mutex::scoped_lock io_lock(io_mutex);
@@ -126,7 +135,7 @@ public:
 		}
 
 		// wait for our resident party member to finish inter-group negotiations
-        gc->party_barriers[party_index]->wait();
+        gc->party_barriers[myParty]->wait();
 
 		// acquire hole-lock
 
@@ -144,19 +153,22 @@ public:
 		make_thread_sleep(sleep_duration/20);
 
 		// release hole-lock
-		//
+		/*
 		if (DEBUG) {
 			boost::mutex::scoped_lock io_lock(io_mutex);
 			cout << "Player #" << myId << " (" << myName
 				 << ") finished playing hole " << hole << " it took "
 				 << sleep_duration << " seconds." << endl;
 		}
+		*/
 
 		// wait for party to finish
-		gc->party_barriers[party_index]->wait();
+		gc->party_barriers[myParty]->wait();
 
 		if (i_have_responsibility) {
-			lock.unlock();
+			//lock.unlock();
+			*(gc->hole_locked[hole]) = false;
+			gc->hole_locks[hole]->unlock();
 
 			if (DEBUG) {
 				boost::mutex::scoped_lock io_lock(io_mutex);

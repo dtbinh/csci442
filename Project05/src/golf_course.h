@@ -6,14 +6,16 @@ struct GolfCourse {
     vector<boost::barrier*> party_barriers;
     vector<boost::mutex*> hole_locks;
 
+	vector<bool*> hole_locked;
     vector<int*> party_nums;
 
 	GolfCourse() {
 		for (int i = 0; i < 18; i++) {
 			// This is where you will initialize your barriers, condition variables,
 			// and any other shared variables or synchronization primitives.
-            party_barriers.push_back(new boost::barrier(4));
+            //party_barriers.push_back(new boost::barrier(4));
             hole_locks.push_back(new boost::mutex());
+			hole_locked.push_back(new bool(false));
 		}
 	}
 
