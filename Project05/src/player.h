@@ -15,7 +15,7 @@ public:
 			GolfCourse* course, boost::xtime start) :
 		myId(id), myName(name), mean(m), sigma(s), myParty(pNum), gc(course),
 		startTime(start) {
-		other_debug = true;
+		other_debug = false;
 
 		// Seed our random number generator. Comment out these lines if you want to
 		// test your code on a constant play durations
@@ -35,7 +35,7 @@ public:
             // create their party barrier
 			//printf("Adding party %i to the list of parties\n", *(&myParty));
 
-            gc->party_nums.push_back(new int(myParty));
+            gc->party_nums.push_back(myParty);
             gc->party_barriers.push_back(new boost::barrier(4));
         } else {
 			//printf("Party %i already exists in the list of parties at the index %i\n", myParty, int_find(gc->party_nums, myParty));
@@ -47,18 +47,18 @@ public:
 		}
 	}
 
-	bool int_in(vector<int*> vect, int item) {
-        for ( int i=0; i < vect.size(); i++) {
-            if ( *(vect[i]) == item ) {
+	bool int_in(vector<int> vect, int item) {
+        for ( unsigned int i=0; i < vect.size(); i++) {
+            if ( vect[i] == item ) {
                 return true;
             }
         }
         return false;
 	}
 
-	bool int_find(vector<int*> vect, int item) {
-        for ( int i=0; i < vect.size(); i++) {
-            if ( *(vect[i]) == item ) {
+	bool int_find(vector<int> vect, int item) {
+        for ( unsigned int i=0; i < vect.size(); i++) {
+            if ( vect[i] == item ) {
                 return i;
             }
         }
@@ -99,7 +99,7 @@ public:
 	// fragments from my solution, but it will need lots of modification.
 	void playHole(int hole) {
 
-		if (*(gc->hole_locked[hole])) {
+		if (gc->hole_locked[hole] != -1 && gc->hole_locked[hole] != myParty) {
 			if (other_debug) {
 				if (DEBUG) {
 					boost::mutex::scoped_lock io_lock(io_mutex);
@@ -110,42 +110,26 @@ public:
 		}
 
 		//int party_index = int_find(gc->party_nums, myParty);
-		if (DEBUG) {
-			boost::mutex::scoped_lock io_lock(io_mutex);
-			//printf("##### Player # %i (%s) myGroup: %i party_index: %i\n", myId, myName.c_str(), myParty, myParty);
-		}
         // wait for your party to catch-up
 
         bool i_have_responsibility = gc->party_barriers[myParty]->wait();
+		if (other_debug) {
+			if (DEBUG) {
+				boost::mutex::scoped_lock io_lock(io_mutex);
+				printf("##### Player # %i (%s) myGroup: %i party_index: %i\n", myId, myName.c_str(), myParty, myParty);
+			}
+		}
 
         //gc->hole_barriers[hole]->wait();
 
-		//boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]), boost::defer_lock);
-		if (i_have_responsibility) {
-			/*
-			if (DEBUG) {
-				boost::mutex::scoped_lock io_lock(io_mutex);
-				cout << "##### Player #" << myId << " (" << myName
-					 << ") has responsibility! " << endl;
-			}
-			*/
-			gc->hole_locks[hole]->lock();
-			*(gc->hole_locked[hole]) = true;
-			announcePlaying(hole);
+		boost::unique_lock<boost::mutex> lock(*(gc->hole_locks[hole]));
 
-			//lock.lock();
-
-			/*
-			if (DEBUG) {
-				boost::mutex::scoped_lock io_lock(io_mutex);
-				cout << "##### Player #" << myId << " (" << myName
-					 << ") gained control over the hole " << hole << endl;
-			}
-			*/
+		while (gc->hole_locked[hole] != -1 && gc->hole_locked[hole] != myParty) {
+			gc->hole_conditions[hole]->wait(lock);
 		}
 
-		// wait for our resident party member to finish inter-group negotiations
-        gc->party_barriers[myParty]->wait();
+		gc->hole_locked[hole] = myParty;
+		lock.unlock();
 
 		// Syntax is a little funny because we have a pointer to a generator.
 		// Normally, you just call generator()
@@ -173,22 +157,18 @@ public:
 
 		// wait for party to finish
 		gc->party_barriers[myParty]->wait();
+		gc->hole_conditions[hole]->notify_one();
 
 		if (i_have_responsibility) {
 			//lock.unlock();
-			*(gc->hole_locked[hole]) = false;
-			gc->hole_locks[hole]->unlock();
+			//gc->hole_locks[hole]->unlock();
 
 			announceLeaving(hole);
 
-			/*
-			if (DEBUG) {
-				boost::mutex::scoped_lock io_lock(io_mutex);
-				cout << "----- Player #" << myId << " (" << myName
-					 << ") notified all on hole " << hole << endl;
-			}
-			*/
+			gc->hole_locked[hole] = -1;
+			gc->hole_conditions[hole]->notify_all();
 		}
+
 
 		if (other_debug) {
 			if (DEBUG) {

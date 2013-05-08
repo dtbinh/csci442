@@ -5,9 +5,10 @@
 struct GolfCourse {
     vector<boost::barrier*> party_barriers;
     vector<boost::mutex*> hole_locks;
+	vector<boost::condition_variable*> hole_conditions;
 
-	vector<bool*> hole_locked;
-    vector<int*> party_nums;
+	vector<int> hole_locked;
+    vector<int> party_nums;
 
 	GolfCourse() {
 		for (int i = 0; i < 18; i++) {
@@ -15,7 +16,24 @@ struct GolfCourse {
 			// and any other shared variables or synchronization primitives.
             //party_barriers.push_back(new boost::barrier(4));
             hole_locks.push_back(new boost::mutex());
-			hole_locked.push_back(new bool(false));
+			hole_locked.push_back(-1);
+			hole_conditions.push_back(new boost::condition_variable());
+		}
+	}
+
+	~GolfCourse() {
+		cout <<"Deconstructing golf course\n";
+		for (vector<boost::barrier*>::iterator iter = party_barriers.begin(); iter != party_barriers.end(); iter++) {
+			free(*iter);
+			iter = party_barriers.erase(iter);
+		}
+		for (vector<boost::mutex*>::iterator iter = hole_locks.begin(); iter != hole_locks.end(); iter++) {
+			free(*iter);
+			iter = hole_locks.erase(iter);
+		}
+		for (vector<boost::condition_variable*>::iterator iter = hole_conditions.begin(); iter != hole_conditions.end(); iter++) {
+			free(*iter);
+			iter = hole_conditions.erase(iter);
 		}
 	}
 
@@ -41,4 +59,5 @@ struct GolfCourse {
 	// other shared variables or synchronization primitives. The variables are
 	// currently public to keep it simple.
 	vector<boost::xtime> turnaround_times;
+
 };
